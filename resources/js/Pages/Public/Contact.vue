@@ -43,7 +43,7 @@
                                     <dt class="text-xs font-semibold uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Téléphone</dt>
                                     <dd class="mt-1">
                                         <a
-                                            href="tel:+212612345678"
+                                            href="tel:+212539376388"
                                             class="text-sm font-semibold transition hover:opacity-80"
                                             style="color: var(--brand-ink)"
                                         >
@@ -83,7 +83,7 @@
 
                         <!-- CTA buttons -->
                         <div class="mt-7 flex flex-wrap gap-3">
-                            <a href="tel:+212612345678" class="brand-btn-primary">
+                            <a href="tel:+212539376388" class="brand-btn-primary">
                                 📞 Appeler
                             </a>
                             <a
