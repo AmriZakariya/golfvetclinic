@@ -1,13 +1,12 @@
 <template>
     <AppLayout>
-        <!-- Page Header -->
         <section class="px-4 pt-12 pb-2 lg:px-6">
             <div class="mx-auto max-w-6xl">
                 <p class="text-xs font-semibold uppercase tracking-[0.22em]" style="color: var(--brand-primary)">
                     Soins vétérinaires · Tanger
                 </p>
                 <h1 class="mt-4 text-3xl font-semibold leading-tight sm:text-4xl" style="color: var(--brand-ink)">
-                    Soins complets pour chiens, chats et NAC 🩺
+                    Soins complets pour chiens, chats et NAC <span aria-hidden="true">🩺</span>
                 </h1>
                 <p class="mt-3 max-w-2xl text-base leading-7" style="color: var(--brand-muted)">
                     Consultations générales, vaccination, imagerie, chirurgie, analyses de laboratoire et suivi
@@ -15,15 +14,12 @@
                     conditions.
                 </p>
 
-                <!-- CTA -->
                 <div class="mt-6 flex flex-wrap gap-3">
                     <a href="#appointment" class="brand-btn-primary">Prendre rendez-vous</a>
-                    <a href="tel:+212612345678" class="brand-btn-outline">📞 Appeler la clinique</a>
                 </div>
             </div>
         </section>
 
-        <!-- Services grid -->
         <section class="px-4 pt-12 lg:px-6">
             <div class="mx-auto max-w-6xl">
                 <p class="text-xs font-semibold uppercase tracking-[0.22em]" style="color: var(--brand-primary)">Nos prestations</p>
@@ -33,22 +29,21 @@
                     <article
                         v-for="service in services"
                         :key="service.title"
-                        class="brand-card brand-card-hover rounded-[26px] p-6"
+                        class="brand-card brand-card-hover rounded-[26px] p-6 h-full flex flex-col"
                     >
                         <div class="mb-4 flex items-center gap-3">
-                            <div class="brand-icon-badge">{{ service.icon }}</div>
+                            <div class="brand-icon-badge" aria-hidden="true">{{ service.icon }}</div>
                             <p class="text-xs font-semibold uppercase tracking-[0.2em]" style="color: var(--brand-primary)">
                                 {{ service.category }}
                             </p>
                         </div>
                         <h3 class="text-base font-semibold" style="color: var(--brand-ink)">{{ service.title }}</h3>
-                        <p class="mt-2 text-sm leading-6" style="color: var(--brand-muted)">{{ service.description }}</p>
+                        <p class="mt-2 text-sm leading-6 flex-grow" style="color: var(--brand-muted)">{{ service.description }}</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- Why us -->
         <section class="px-4 pt-14 lg:px-6">
             <div class="mx-auto max-w-6xl">
                 <div class="brand-card rounded-[32px] p-8 lg:p-10">
@@ -67,10 +62,10 @@
                             <div
                                 v-for="item in whyUs"
                                 :key="item.title"
-                                class="rounded-[20px] p-5"
+                                class="rounded-[20px] p-5 transition-all duration-300 hover:-translate-y-1"
                                 style="background: var(--brand-panel)"
                             >
-                                <p class="text-2xl">{{ item.icon }}</p>
+                                <p class="text-2xl" aria-hidden="true">{{ item.icon }}</p>
                                 <p class="mt-2 text-sm font-semibold" style="color: var(--brand-ink)">{{ item.title }}</p>
                                 <p class="mt-1 text-xs leading-5" style="color: var(--brand-muted)">{{ item.text }}</p>
                             </div>
@@ -80,11 +75,10 @@
             </div>
         </section>
 
-        <!-- Appointment CTA -->
         <section class="px-4 pt-14 pb-20 lg:px-6" id="appointment">
             <div class="mx-auto max-w-6xl">
                 <div class="brand-card rounded-[32px] p-8 text-center">
-                    <p class="text-4xl">🐾</p>
+                    <p class="text-4xl" aria-hidden="true">🐾</p>
                     <h2 class="mt-4 text-2xl font-semibold" style="color: var(--brand-ink)">
                         Prêt à prendre soin de votre compagnon ?
                     </h2>
@@ -94,7 +88,7 @@
                     </p>
                     <div class="mt-6 flex flex-wrap justify-center gap-3">
                         <a href="/" class="brand-btn-primary">Prendre rendez-vous en ligne</a>
-                        <a href="tel:+212612345678" class="brand-btn-outline">📞 +212 6 12 34 56 78</a>
+                        <a href="tel:+212612345678" class="brand-btn-outline"><span aria-hidden="true">📞</span> +212 6 12 34 56 78</a>
                     </div>
                 </div>
             </div>
@@ -122,7 +116,7 @@ const services = [
         icon: '🔬',
         category: 'Laboratoire',
         title: 'Analyses de sang & urines',
-        description: 'Bilan sanguin, analyse d'urine et tests rapides pour un diagnostic précis en clinique.',
+        description: "Bilan sanguin, analyse d'urine et tests rapides pour un diagnostic précis en clinique.",
     },
     {
         icon: '📡',
@@ -157,7 +151,7 @@ const services = [
     {
         icon: '🚑',
         category: 'Urgences',
-        title: 'Soins d\'urgence 24h/24',
+        title: "Soins d'urgence 24h/24",
         description: 'Disponibilité permanente pour les urgences vitales, avec ambulance vétérinaire à domicile.',
     },
 ];
