@@ -7,5 +7,341 @@
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* ─── Light mode (default) ──────────────────────────────────────── */
+:root {
+    --brand-bg: #f7f2ec;
+    --brand-surface: rgba(255, 251, 247, 0.82);
+    --brand-surface-strong: #fffaf5;
+    --brand-panel: #fff3e8;
+    --brand-panel-alt: #f4e1d5;
+    --brand-ink: #1f2933;
+    --brand-muted: #6f6258;
+    --brand-primary: #d76631;
+    --brand-primary-strong: #bd4c22;
+    --brand-primary-soft: rgba(215, 102, 49, 0.14);
+    --brand-secondary: #1f3d4b;
+    --brand-accent: #cba16d;
+    --brand-border: rgba(112, 76, 53, 0.14);
+    --brand-shadow: rgba(152, 73, 30, 0.18);
+    --brand-field-bg: rgba(255, 250, 245, 0.96);
+    --brand-field-border: rgba(112, 76, 53, 0.22);
+    --brand-danger: #dc2626;
+    --brand-danger-soft: rgba(220, 38, 38, 0.08);
+    --brand-danger-border: rgba(220, 38, 38, 0.22);
+}
+
+/* ─── Dark mode ─────────────────────────────────────────────────── */
+[data-theme="dark"] {
+    --brand-bg: #0d1821;
+    --brand-surface: rgba(18, 30, 42, 0.88);
+    --brand-surface-strong: #121e2a;
+    --brand-panel: #182535;
+    --brand-panel-alt: #14202e;
+    --brand-ink: #ede9e4;
+    --brand-muted: #9c9085;
+    --brand-primary: #e07844;
+    --brand-primary-strong: #c8602e;
+    --brand-primary-soft: rgba(224, 120, 68, 0.18);
+    --brand-secondary: #7ec3dd;
+    --brand-accent: #d4aa7a;
+    --brand-border: rgba(224, 120, 68, 0.2);
+    --brand-shadow: rgba(5, 10, 20, 0.55);
+    --brand-field-bg: rgba(10, 18, 28, 0.9);
+    --brand-field-border: rgba(224, 120, 68, 0.22);
+    --brand-danger: #f87171;
+    --brand-danger-soft: rgba(248, 113, 113, 0.1);
+    --brand-danger-border: rgba(248, 113, 113, 0.25);
+}
+
+/* ─── Body ──────────────────────────────────────────────────────── */
+body {
+    background-color: var(--brand-bg);
+    background-image:
+        radial-gradient(circle at top, rgba(215, 102, 49, 0.1), transparent 34%),
+        linear-gradient(180deg, #fffaf5 0%, #f7f2ec 45%, #f1e8df 100%);
+    color: var(--brand-ink);
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+[data-theme="dark"] body {
+    background-image:
+        radial-gradient(circle at top, rgba(224, 120, 68, 0.08), transparent 34%),
+        linear-gradient(180deg, #0d1821 0%, #0f1e2c 50%, #0a1520 100%);
+}
+
+/* ─── Brand shell ───────────────────────────────────────────────── */
+.brand-shell {
+    position: relative;
+}
+
+.brand-shell::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(203, 161, 109, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(215, 102, 49, 0.1), transparent 26%),
+        radial-gradient(circle at 90% 90%, rgba(31, 61, 75, 0.07), transparent 24%);
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .brand-shell::before {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(212, 170, 122, 0.07), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(224, 120, 68, 0.07), transparent 26%),
+        radial-gradient(circle at 90% 90%, rgba(126, 195, 221, 0.04), transparent 24%);
+}
+
+/* ─── Cards ─────────────────────────────────────────────────────── */
+.brand-card {
+    background: var(--brand-surface);
+    border: 1px solid var(--brand-border);
+    box-shadow: 0 24px 80px -32px var(--brand-shadow);
+    backdrop-filter: blur(16px);
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.brand-card-hover:hover {
+    box-shadow: 0 32px 96px -24px var(--brand-shadow);
+    border-color: var(--brand-primary-soft);
+}
+
+.brand-outline {
+    border: 1px solid var(--brand-border);
+}
+
+/* ─── Grid background ───────────────────────────────────────────── */
+.brand-grid {
+    background-image:
+        linear-gradient(rgba(112, 76, 53, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(112, 76, 53, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+[data-theme="dark"] .brand-grid {
+    background-image:
+        linear-gradient(rgba(224, 120, 68, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224, 120, 68, 0.06) 1px, transparent 1px);
+}
+
+/* ─── Logo frame ────────────────────────────────────────────────── */
+.brand-logo-frame {
+    background:
+        linear-gradient(145deg, rgba(255, 250, 245, 0.95), rgba(244, 225, 213, 0.8)),
+        var(--brand-surface-strong);
+}
+
+[data-theme="dark"] .brand-logo-frame {
+    background:
+        linear-gradient(145deg, rgba(18, 30, 42, 0.95), rgba(30, 50, 65, 0.8)),
+        var(--brand-surface-strong);
+}
+
+/* ─── Form fields ───────────────────────────────────────────────── */
+.brand-field {
+    width: 100%;
+    padding: 0.6875rem 1rem;
+    border-radius: 0.875rem;
+    border: 1px solid var(--brand-field-border);
+    background: var(--brand-field-bg);
+    color: var(--brand-ink);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    outline: none;
+    appearance: none;
+}
+
+.brand-field::placeholder {
+    color: var(--brand-muted);
+    opacity: 0.6;
+}
+
+.brand-field:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 3px var(--brand-primary-soft);
+}
+
+/* ─── Danger / emergency field variant ─────────────────────────── */
+.brand-field-danger {
+    border-color: var(--brand-danger-border);
+    background: var(--brand-danger-soft);
+}
+
+.brand-field-danger:focus {
+    border-color: var(--brand-danger);
+    box-shadow: 0 0 0 3px var(--brand-danger-soft);
+}
+
+/* Home page appointment form fields (on dark card) */
+.field-light {
+    @apply w-full rounded-2xl border border-white/15 bg-white/8 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-[color:var(--brand-accent)] focus:outline-none focus:ring-1 focus:ring-[color:var(--brand-accent)];
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────── */
+.brand-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    background: var(--brand-primary);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+    box-shadow: 0 8px 24px -8px var(--brand-shadow);
+    cursor: pointer;
+    border: none;
+}
+
+.brand-btn-primary:hover {
+    background: var(--brand-primary-strong);
+    box-shadow: 0 12px 32px -8px var(--brand-shadow);
+    transform: translateY(-1px);
+}
+
+.brand-btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.brand-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--brand-border);
+    background: var(--brand-surface-strong);
+    color: var(--brand-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+    cursor: pointer;
+}
+
+.brand-btn-outline:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    transform: translateY(-1px);
+}
+
+/* ─── Emergency button ──────────────────────────────────────────── */
+.brand-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.875rem;
+    background: var(--brand-danger);
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    transition:
+        filter 0.2s ease,
+        transform 0.15s ease;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+}
+
+.brand-btn-danger:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.brand-btn-danger:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ─── Page header pattern ───────────────────────────────────────── */
+.brand-page-header {
+    padding: 3.5rem 1rem 0;
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+/* ─── Icon badge ────────────────────────────────────────────────── */
+.brand-icon-badge {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand-primary-soft);
+    color: var(--brand-primary);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* ─── Pulse ring for emergency ──────────────────────────────────── */
+@keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+.pulse-dot {
+    position: relative;
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--brand-danger);
+    flex-shrink: 0;
+}
+
+.pulse-dot::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: var(--brand-danger);
+    animation: pulse-ring 1.4s ease-out infinite;
+}
+
+/* ─── Theme toggle button ───────────────────────────────────────── */
+.brand-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid var(--brand-border);
+    background: var(--brand-surface);
+    color: var(--brand-muted);
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease;
+    backdrop-filter: blur(8px);
+}
+
+.brand-theme-toggle:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
 }

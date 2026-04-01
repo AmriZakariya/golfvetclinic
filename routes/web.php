@@ -54,7 +54,7 @@ Route::middleware('auth')
     });
 
 Route::prefix('{locale}')
-    ->whereIn('locale', ['fr', 'en'])
+    ->whereIn('locale', ['fr', 'en', 'ar', 'es'])
     ->middleware(\App\Http\Middleware\SetLocale::class)
     ->group(function () {
         Route::get('/', HomeController::class)->name('home');

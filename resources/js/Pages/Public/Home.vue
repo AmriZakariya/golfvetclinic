@@ -1,164 +1,261 @@
 <template>
     <AppLayout>
-        <section class="relative overflow-hidden">
-            <div class="mx-auto max-w-6xl px-4 pt-16 pb-20 lg:pt-24 lg:pb-28 grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-center">
+        <section class="overflow-hidden px-4 pt-10 lg:px-6 lg:pt-14">
+            <div class="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
                 <div class="space-y-8">
-                    <p class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/5 px-3 py-1 text-xs font-medium tracking-wide text-emerald-200 shadow-sm">
-                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        Clinique vétérinaire premium à Tanger
-                    </p>
+                    <div
+                        class="inline-flex items-center gap-3 rounded-full px-4 py-2 text-xs uppercase tracking-[0.24em] shadow-sm"
+                        style="border: 1px solid var(--brand-border); background: var(--brand-surface); color: var(--brand-primary)"
+                    >
+                        <span class="h-2 w-2 rounded-full" style="background: var(--brand-primary)"></span>
+                        {{ text.home.badge }}
+                    </div>
 
-                    <div class="space-y-4">
-                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-slate-50">
-                            Le Golf PetCare,
-                            <span class="text-emerald-300">référence vétérinaire</span>
-                            pour vos compagnons à Tanger.
+                    <div class="space-y-5">
+                        <h1 class="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl" style="color: var(--brand-ink)">
+                            {{ text.home.title }}
                         </h1>
-                        <p class="text-sm sm:text-base text-slate-300 max-w-xl">
-                            Soins vétérinaires complets, ambulance 24/7, pension sécurisée et toilettage professionnel
-                            dans une clinique moderne, pensée pour le bien-être de votre animal et votre tranquillité
-                            d’esprit.
+                        <p class="max-w-3xl text-lg leading-8" style="color: var(--brand-ink); opacity: 0.85">
+                            {{ text.home.highlight }}
+                        </p>
+                        <p class="max-w-2xl text-base leading-8" style="color: var(--brand-muted)">
+                            {{ text.home.lead }}
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-3">
                         <a
-                            href="#rdv"
-                            class="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/40 hover:bg-emerald-300 transition"
+                            href="#appointment"
+                            class="brand-btn-primary"
                         >
-                            Prendre rendez-vous
+                            {{ text.ctas.appointment }}
                         </a>
                         <Link
-                            :href="`/${locale}/ambulance-veterinaire-tanger`"
-                            class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/80 px-5 py-2.5 text-sm font-medium text-slate-100 hover:border-emerald-400/70 hover:text-emerald-200 transition"
+                            :href="localizePath(locale, '/ambulance-veterinaire-tanger')"
+                            class="brand-btn-outline"
                         >
-                            Urgence ambulance vétérinaire
+                            {{ text.ctas.emergency }}
+                        </Link>
+                        <Link
+                            :href="localizePath(locale, '/contact-clinique-veterinaire-tanger')"
+                            class="rounded-full px-6 py-3 text-sm font-semibold transition"
+                            style="color: var(--brand-muted)"
+                            onmouseover="this.style.color='var(--brand-primary)'"
+                            onmouseout="this.style.color='var(--brand-muted)'"
+                        >
+                            {{ text.ctas.contact }}
                         </Link>
                     </div>
 
-                    <dl class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-slate-300">
-                        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3">
-                            <dt class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-500">
-                                Disponibilité
-                            </dt>
-                            <dd class="mt-1 text-sm font-semibold text-slate-50">
-                                Urgences vétérinaires 24/7
-                            </dd>
-                        </div>
-                        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3">
-                            <dt class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-500">
-                                Services
-                            </dt>
-                            <dd class="mt-1 text-sm font-semibold text-slate-50">
-                                Soins, pension, toilettage
-                            </dd>
-                        </div>
-                        <div class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-3">
-                            <dt class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-500">
-                                Localisation
-                            </dt>
-                            <dd class="mt-1 text-sm font-semibold text-slate-50">
-                                Quartier du Golf – Tanger
-                            </dd>
-                        </div>
-                    </dl>
+                    <div class="grid gap-4 sm:grid-cols-3">
+                        <article v-for="stat in stats" :key="stat.label" class="brand-card rounded-[28px] p-5">
+                            <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ stat.label }}</p>
+                            <p class="mt-3 text-base font-semibold" style="color: var(--brand-ink)">{{ stat.value }}</p>
+                        </article>
+                    </div>
                 </div>
 
-                <div id="rdv" class="relative scroll-mt-24">
-                    <div class="absolute -inset-10 bg-emerald-500/10 blur-3xl" />
-                    <div class="relative rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/40 p-6 shadow-2xl shadow-emerald-500/20">
-                        <h2 class="text-sm font-semibold text-slate-50 mb-4">
-                            Demande de rendez-vous rapide
-                        </h2>
-                        <form
-                            class="space-y-3"
-                            @submit.prevent="submit"
-                        >
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1">Nom & prénom</label>
-                                <input
-                                    type="text"
-                                    class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 placeholder:text-slate-600 focus:border-emerald-400/80 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
-                                    placeholder="Ex : Salma El Idrissi"
-                                    v-model="form.name"
-                                />
-                            </div>
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1">Téléphone</label>
-                                <input
-                                    type="tel"
-                                    class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 placeholder:text-slate-600 focus:border-emerald-400/80 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
-                                    placeholder="+212 6 XX XX XX XX"
-                                    v-model="form.phone"
-                                />
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">Type d’animal</label>
-                                    <select
-                                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 focus:border-emerald-400/80 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
-                                        v-model="form.animal_type"
-                                    >
-                                        <option>Chien</option>
-                                        <option>Chat</option>
-                                        <option>NAC</option>
-                                    </select>
+                <div class="relative" id="appointment">
+                    <div class="brand-grid absolute inset-6 rounded-[32px] opacity-60"></div>
+                    <div class="relative grid gap-4">
+                        <div class="brand-card rounded-[32px] p-4 sm:p-5">
+                            <div class="grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
+                                <div class="brand-logo-frame overflow-hidden rounded-[28px] border p-2" style="border-color: var(--brand-border)">
+                                    <img :src="brand.logo" :alt="brand.name" class="h-full min-h-[220px] w-full rounded-[22px] object-cover" />
                                 </div>
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">Date souhaitée</label>
-                                    <input
-                                        type="date"
-                                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 focus:border-emerald-400/80 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
-                                        v-model="form.desired_date"
-                                    />
+                                <div class="rounded-[28px] p-6 text-white shadow-2xl" style="background: linear-gradient(160deg, rgba(31,61,75,0.98), rgba(31,61,75,0.84)); box-shadow: 0 24px 64px -16px rgba(31,61,75,0.35);">
+                                    <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-accent)">
+                                        {{ text.home.appointmentCardTitle }}
+                                    </p>
+                                    <h2 class="mt-3 text-2xl font-semibold">
+                                        {{ text.ctas.appointment }}
+                                    </h2>
+                                    <p class="mt-3 text-sm leading-7" style="color: rgba(255,255,255,0.75)">
+                                        {{ text.home.appointmentCardText }}
+                                    </p>
+
+                                    <form class="mt-5 space-y-3" @submit.prevent="submit">
+                                        <div>
+                                            <label class="mb-1 block text-xs uppercase tracking-[0.18em]" style="color: rgba(255,255,255,0.65)">{{ text.home.form.name }}</label>
+                                            <input v-model="form.name" type="text" class="field-light" />
+                                        </div>
+                                        <div>
+                                            <label class="mb-1 block text-xs uppercase tracking-[0.18em]" style="color: rgba(255,255,255,0.65)">{{ text.home.form.phone }}</label>
+                                            <input v-model="form.phone" type="tel" class="field-light" />
+                                        </div>
+                                        <div class="grid gap-3 sm:grid-cols-2">
+                                            <div>
+                                                <label class="mb-1 block text-xs uppercase tracking-[0.18em]" style="color: rgba(255,255,255,0.65)">{{ text.home.form.animalType }}</label>
+                                                <select v-model="form.animal_type" class="field-light">
+                                                    <option value="dog">{{ animalLabels.dog }}</option>
+                                                    <option value="cat">{{ animalLabels.cat }}</option>
+                                                    <option value="other">{{ animalLabels.other }}</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="mb-1 block text-xs uppercase tracking-[0.18em]" style="color: rgba(255,255,255,0.65)">{{ text.home.form.date }}</label>
+                                                <input v-model="form.desired_date" type="date" class="field-light" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="mb-1 block text-xs uppercase tracking-[0.18em]" style="color: rgba(255,255,255,0.65)">{{ text.home.form.reason }}</label>
+                                            <textarea v-model="form.reason" rows="3" class="field-light"></textarea>
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            class="w-full rounded-2xl px-4 py-3 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60"
+                                            style="background: var(--brand-primary)"
+                                            :disabled="form.processing"
+                                        >
+                                            {{ form.processing ? text.home.form.sending : text.home.form.submit }}
+                                        </button>
+                                        <p class="text-xs leading-6" style="color: rgba(255,255,255,0.65)">{{ text.home.form.helper }}</p>
+                                    </form>
                                 </div>
                             </div>
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1">Motif de la consultation</label>
-                                <textarea
-                                    rows="2"
-                                    class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 placeholder:text-slate-600 focus:border-emerald-400/80 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
-                                    placeholder="Vaccination, bilan de santé, chirurgie, urgence…"
-                                    v-model="form.reason"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                class="w-full rounded-xl bg-emerald-400 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-md shadow-emerald-500/40 hover:bg-emerald-300 transition disabled:opacity-60 disabled:cursor-not-allowed"
-                                :disabled="form.processing"
-                            >
-                                <span v-if="form.processing">Envoi en cours…</span>
-                                <span v-else>Envoyer la demande de rendez-vous</span>
-                            </button>
-                            <p class="text-[0.7rem] text-slate-500">
-                                Un membre de l’équipe vous rappelle rapidement pour confirmer l’horaire exact.
-                            </p>
-                        </form>
+                        </div>
+
+                        <div class="grid gap-4 sm:grid-cols-3">
+                            <article v-for="item in quickFacts" :key="item.title" class="brand-card rounded-[28px] p-5">
+                                <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ item.title }}</p>
+                                <p class="mt-3 text-sm leading-7" style="color: var(--brand-muted)">{{ item.text }}</p>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section v-if="testimonials?.length" class="mx-auto max-w-6xl px-4 pb-20">
-            <h2 class="text-lg font-semibold text-slate-50 mb-6">Avis clients</h2>
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <article
-                    v-for="t in testimonials"
-                    :key="t.id"
-                    class="rounded-2xl border border-slate-800 bg-slate-900/50 p-4 text-sm text-slate-300"
-                >
-                    <p class="text-emerald-300 mb-2">{{ '★'.repeat(Number(t.rating) || 0) }}</p>
-                    <p class="text-slate-200 mb-3">{{ t.content }}</p>
-                    <p class="text-xs text-slate-500">— {{ t.client_name }}</p>
-                </article>
+        <section class="px-4 pt-20 lg:px-6">
+            <div class="mx-auto max-w-7xl">
+                <div class="max-w-3xl">
+                    <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ text.home.servicesTitle }}</p>
+                    <h2 class="mt-3 text-3xl font-semibold" style="color: var(--brand-ink)">{{ text.home.servicesText }}</h2>
+                </div>
+
+                <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    <Link
+                        v-for="service in serviceCards"
+                        :key="service.key"
+                        :href="service.href"
+                        class="brand-card brand-card-hover group rounded-[30px] p-6 transition hover:-translate-y-1"
+                    >
+                        <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ service.eyebrow }}</p>
+                        <h3 class="mt-4 text-xl font-semibold" style="color: var(--brand-ink)">{{ service.title }}</h3>
+                        <p class="mt-3 text-sm leading-7" style="color: var(--brand-muted)">{{ service.text }}</p>
+                        <div class="mt-6 text-sm font-semibold" style="color: var(--brand-primary)">{{ text.ctas.explore }}</div>
+                    </Link>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-4 pt-20 lg:px-6">
+            <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ text.home.trustTitle }}</p>
+                    <h2 class="mt-3 text-3xl font-semibold" style="color: var(--brand-ink)">{{ text.home.trustText }}</h2>
+                </div>
+
+                <div class="grid gap-4">
+                    <article v-for="item in trustItems" :key="item.title" class="brand-card rounded-[30px] p-6">
+                        <h3 class="text-lg font-semibold" style="color: var(--brand-ink)">{{ item.title }}</h3>
+                        <p class="mt-3 text-sm leading-7" style="color: var(--brand-muted)">{{ item.text }}</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section v-if="testimonials.length" class="px-4 pt-20 lg:px-6">
+            <div class="mx-auto max-w-7xl">
+                <div class="max-w-3xl">
+                    <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ text.home.testimonialsTitle }}</p>
+                    <h2 class="mt-3 text-3xl font-semibold" style="color: var(--brand-ink)">{{ text.home.testimonialsText }}</h2>
+                </div>
+
+                <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    <article v-for="item in testimonials" :key="item.id" class="brand-card rounded-[30px] p-6">
+                        <p class="text-sm tracking-[0.28em]" style="color: var(--brand-primary)">{{ starText(item.rating) }}</p>
+                        <p class="mt-4 text-base leading-8" style="color: var(--brand-ink)">{{ item.content }}</p>
+                        <p class="mt-5 text-sm font-semibold" style="color: var(--brand-secondary)">{{ item.client_name }}</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-4 py-20 lg:px-6">
+            <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_0.95fr]">
+                <div class="brand-card overflow-hidden rounded-[34px] p-4">
+                    <iframe
+                        :src="brand.mapsEmbed"
+                        class="h-[420px] w-full rounded-[26px] border-0"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+
+                <div class="grid gap-5">
+                    <article class="brand-card rounded-[34px] p-7">
+                        <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ text.home.locationTitle }}</p>
+                        <h2 class="mt-3 text-3xl font-semibold" style="color: var(--brand-ink)">{{ text.home.locationText }}</h2>
+                        <div class="mt-6 grid gap-4">
+                            <div class="rounded-[24px] p-5" style="background: var(--brand-panel)">
+                                <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ text.home.location.cardTitle }}</p>
+                                <dl class="mt-4 grid gap-4 text-sm" style="color: var(--brand-muted)">
+                                    <div>
+                                        <dt class="font-semibold" style="color: var(--brand-ink)">{{ text.home.location.addressLabel }}</dt>
+                                        <dd class="mt-1">{{ brand.address }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-semibold" style="color: var(--brand-ink)">{{ text.home.location.hoursLabel }}</dt>
+                                        <dd class="mt-1">{{ brand.hours }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="font-semibold" style="color: var(--brand-ink)">{{ text.home.location.phoneLabel }}</dt>
+                                        <dd class="mt-1">{{ brand.phoneDisplay }}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <a :href="brand.phoneHref" class="brand-btn-primary">{{ text.ctas.call }}</a>
+                                <a :href="brand.mapsHref" target="_blank" rel="noreferrer" class="brand-btn-outline">{{ text.ctas.directions }}</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="brand-card rounded-[34px] p-7">
+                        <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">{{ text.home.galleryTitle }}</p>
+                        <h2 class="mt-3 text-3xl font-semibold" style="color: var(--brand-ink)">{{ text.home.galleryText }}</h2>
+                        <div class="mt-6 grid gap-4 sm:grid-cols-[1fr_1fr]">
+                            <div class="brand-logo-frame overflow-hidden rounded-[28px] border p-2" style="border-color: var(--brand-border)">
+                                <img :src="brand.logo" :alt="brand.name" class="h-full min-h-[220px] w-full rounded-[22px] object-cover" />
+                            </div>
+                            <div class="grid gap-4">
+                                <div class="rounded-[28px] p-5" style="background: var(--brand-panel)">
+                                    <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">Palette</p>
+                                    <div class="mt-4 flex gap-3">
+                                        <span v-for="swatch in swatches" :key="swatch" class="h-12 w-12 rounded-2xl shadow-sm" style="border: 1px solid rgba(255,255,255,0.3)" :style="{ backgroundColor: swatch }"></span>
+                                    </div>
+                                </div>
+                                <div class="rounded-[28px] p-5" style="background: var(--brand-panel-alt)">
+                                    <p class="text-xs uppercase tracking-[0.24em]" style="color: var(--brand-primary)">Brand system</p>
+                                    <p class="mt-3 text-sm leading-7" style="color: var(--brand-muted)">
+                                        Theme tokens and logo usage are centralized, so a future rebrand only needs a color and asset update instead of a full redesign.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
     </AppLayout>
 </template>
 
 <script setup>
-import AppLayout from '../../Layouts/AppLayout.vue';
+import { computed } from 'vue';
 import { Link, useForm } from '@inertiajs/vue3';
+import AppLayout from '../../Layouts/AppLayout.vue';
+import { brand, getLocale, getMessage, localizePath } from '../../lib/site';
 
 const props = defineProps({
     locale: {
@@ -171,21 +268,95 @@ const props = defineProps({
     },
 });
 
+const locale = computed(() => getLocale(props.locale));
+const text = computed(() => getMessage(locale.value));
+
+const animalLabels = computed(() => {
+    if (locale.value === 'ar') return { dog: 'كلب', cat: 'قط', other: 'اخر' };
+    if (locale.value === 'en') return { dog: 'Dog', cat: 'Cat', other: 'Other' };
+    if (locale.value === 'es') return { dog: 'Perro', cat: 'Gato', other: 'Otro' };
+    return { dog: 'Chien', cat: 'Chat', other: 'Autre' };
+});
+
 const form = useForm({
     name: '',
     phone: '',
-    animal_type: 'Chien',
+    animal_type: 'dog',
     desired_date: '',
     reason: '',
 });
 
+const stats = computed(() => [
+    { label: text.value.home.stats.emergency, value: brand.hours },
+    { label: text.value.home.stats.location, value: brand.address },
+    { label: text.value.home.stats.services, value: 'RDV · Ambulance · Pension · Toilettage' },
+]);
+
+const quickFacts = computed(() => [
+    {
+        title: 'SEO',
+        text: 'Service pages and local wording are easier to structure for Tangier-focused search intent.',
+    },
+    {
+        title: 'UX',
+        text: 'Main actions stay visible immediately: book, call, WhatsApp and directions.',
+    },
+    {
+        title: 'Brand',
+        text: 'Logo, colors and atmosphere now feel consistent instead of generic.',
+    },
+]);
+
+const serviceCards = computed(() => [
+    {
+        key: 'care',
+        href: localizePath(locale.value, '/soins-veterinaires'),
+        ...text.value.home.services.care,
+    },
+    {
+        key: 'ambulance',
+        href: localizePath(locale.value, '/ambulance-veterinaire-tanger'),
+        ...text.value.home.services.ambulance,
+    },
+    {
+        key: 'boarding',
+        href: localizePath(locale.value, '/pension-animaux-tanger'),
+        ...text.value.home.services.boarding,
+    },
+    {
+        key: 'grooming',
+        href: localizePath(locale.value, '/toilettage-chien-tanger'),
+        ...text.value.home.services.grooming,
+    },
+    {
+        key: 'shop',
+        href: localizePath(locale.value, '/boutique'),
+        ...text.value.home.services.shop,
+    },
+    {
+        key: 'community',
+        href: localizePath(locale.value, '/communaute'),
+        ...text.value.home.services.community,
+    },
+]);
+
+const trustItems = computed(() => text.value.home.trust);
+const testimonials = computed(() => props.testimonials ?? []);
+const swatches = ['#d76631', '#bd4c22', '#1f3d4b', '#cba16d', '#f4e1d5'];
+
 const submit = () => {
-    form.post(`/${props.locale}/rdv`, {
-        onSuccess: () => {
-            form.reset('phone', 'reason');
-        },
+    form.post(localizePath(locale.value, '/rdv'), {
+        onSuccess: () => form.reset(),
     });
 };
+
+const starText = (rating) => '★'.repeat(Number(rating) || 0);
 </script>
 
+<style scoped>
+@reference "../../../css/app.css";
 
+.field-light {
+    @apply w-full rounded-2xl border border-white/15 bg-white/8 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-[color:var(--brand-accent)] focus:outline-none focus:ring-1 focus:ring-[color:var(--brand-accent)];
+}
+</style>

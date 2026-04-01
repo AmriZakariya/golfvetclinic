@@ -1,111 +1,218 @@
 <template>
-    <div class="min-h-screen flex flex-col bg-slate-950 text-slate-50">
+    <div :dir="direction" :lang="locale" class="brand-shell min-h-screen">
         <div
             v-if="flash?.success"
-            class="bg-emerald-500/15 border-b border-emerald-400/30 text-center text-sm text-emerald-100 py-2 px-4"
+            class="border-b border-[color:var(--brand-border)] bg-[color:var(--brand-primary-soft)] px-4 py-3 text-center text-sm text-[color:var(--brand-primary-strong)]"
         >
             {{ flash.success }}
         </div>
 
-        <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-            <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-6">
-                <Link :href="`/${locale}`" class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-full bg-emerald-500/10 border border-emerald-400/40 flex items-center justify-center text-emerald-300 font-semibold">
-                        GP
-                    </div>
-                    <div>
-                        <div class="text-sm uppercase tracking-[0.2em] text-emerald-300">
-                            Le Golf PetCare
+        <header class="sticky top-0 z-40 border-b border-[color:var(--brand-border)] bg-[rgba(255,250,245,0.86)] backdrop-blur-xl">
+            <div class="mx-auto max-w-7xl px-4 py-4 lg:px-6">
+                <div class="flex items-center justify-between gap-4">
+                    <Link :href="homeHref" class="flex min-w-0 items-center gap-3">
+                        <div class="brand-logo-frame h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-[color:var(--brand-border)] p-1">
+                            <img :src="brand.logo" :alt="brand.name" class="h-full w-full rounded-xl object-cover" />
                         </div>
-                        <div class="text-xs text-slate-400">
-                            Clinique vétérinaire – Tanger
+                        <div class="min-w-0">
+                            <p class="truncate text-xs uppercase tracking-[0.28em] text-[color:var(--brand-primary)]">
+                                {{ brand.name }}
+                            </p>
+                            <p class="truncate text-sm text-[color:var(--brand-muted)]">
+                                {{ text.layout.subtitle }}
+                            </p>
                         </div>
+                    </Link>
+
+                    <nav class="hidden items-center gap-5 lg:flex">
+                        <Link
+                            v-for="item in navItems"
+                            :key="item.key"
+                            :href="item.href"
+                            class="text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]"
+                        >
+                            {{ item.label }}
+                        </Link>
+                    </nav>
+
+                    <div class="hidden items-center gap-3 lg:flex">
+                        <div class="flex items-center gap-2 rounded-full border border-[color:var(--brand-border)] bg-white/70 px-2 py-1">
+                            <Link
+                                v-for="item in localeItems"
+                                :key="item.code"
+                                :href="item.href"
+                                class="rounded-full px-3 py-1 text-xs font-semibold transition"
+                                :class="item.code === locale ? 'bg-[color:var(--brand-primary)] text-white' : 'text-[color:var(--brand-muted)] hover:text-[color:var(--brand-primary)]'"
+                            >
+                                {{ item.label }}
+                            </Link>
+                        </div>
+
+                        <Link
+                            :href="emergencyHref"
+                            class="rounded-full bg-[color:var(--brand-secondary)] px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-[color:var(--brand-shadow)] transition hover:bg-[color:var(--brand-primary)]"
+                        >
+                            {{ text.ctas.emergency }}
+                        </Link>
                     </div>
-                </Link>
 
-                <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
-                    <Link :href="`/${locale}`" class="hover:text-emerald-300 transition-colors">Accueil</Link>
-                    <Link :href="`/${locale}/soins-veterinaires`" class="hover:text-emerald-300 transition-colors">Soins</Link>
-                    <Link :href="`/${locale}/ambulance-veterinaire-tanger`" class="hover:text-emerald-300 transition-colors">Ambulance</Link>
-                    <Link :href="`/${locale}/pension-animaux-tanger`" class="hover:text-emerald-300 transition-colors">Pension</Link>
-                    <Link :href="`/${locale}/toilettage-chien-tanger`" class="hover:text-emerald-300 transition-colors">Toilettage</Link>
-                    <Link :href="`/${locale}/boutique`" class="hover:text-emerald-300 transition-colors">Boutique</Link>
-                    <Link :href="`/${locale}/communaute`" class="hover:text-emerald-300 transition-colors">Communauté</Link>
-                    <Link :href="`/${locale}/contact-clinique-veterinaire-tanger`" class="hover:text-emerald-300 transition-colors">Contact</Link>
-                </nav>
+                    <button
+                        type="button"
+                        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--brand-border)] bg-white/80 text-[color:var(--brand-secondary)] lg:hidden"
+                        @click="mobileOpen = !mobileOpen"
+                    >
+                        <span class="sr-only">menu</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+                            <path d="M3 6h14M3 10h14M3 14h14" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
 
-                <div class="flex items-center gap-2">
-                    <Link
-                        v-if="locale === 'fr'"
-                        :href="`/en`"
-                        class="hidden sm:inline-flex items-center rounded-full border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-100 hover:border-emerald-400/60"
-                    >
-                        EN
-                    </Link>
-                    <Link
-                        v-else
-                        :href="`/fr`"
-                        class="hidden sm:inline-flex items-center rounded-full border border-slate-700 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-100 hover:border-emerald-400/60"
-                    >
-                        FR
-                    </Link>
-                    <Link
-                        :href="`/${locale}/ambulance-veterinaire-tanger`"
-                        class="inline-flex items-center rounded-full border border-slate-700 bg-slate-900 px-4 py-1.5 text-xs font-medium text-slate-100 shadow-sm hover:border-emerald-400/60 hover:text-emerald-200 transition"
-                    >
-                        Urgence 24/7
-                    </Link>
+                <div v-if="mobileOpen" class="brand-card mt-4 rounded-3xl p-4 lg:hidden">
+                    <div class="grid gap-3">
+                        <Link
+                            v-for="item in navItems"
+                            :key="item.key"
+                            :href="item.href"
+                            class="rounded-2xl px-4 py-3 text-sm text-[color:var(--brand-ink)] transition hover:bg-[color:var(--brand-primary-soft)]"
+                            @click="mobileOpen = false"
+                        >
+                            {{ item.label }}
+                        </Link>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <Link
+                            v-for="item in localeItems"
+                            :key="item.code"
+                            :href="item.href"
+                            class="rounded-full border px-3 py-1.5 text-xs font-semibold"
+                            :class="item.code === locale ? 'border-[color:var(--brand-primary)] bg-[color:var(--brand-primary)] text-white' : 'border-[color:var(--brand-border)] bg-white text-[color:var(--brand-muted)]'"
+                            @click="mobileOpen = false"
+                        >
+                            {{ item.nativeLabel }}
+                        </Link>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <main class="flex-1">
+        <main class="relative">
             <slot />
         </main>
 
-        <footer class="border-t border-slate-800 bg-slate-950/90">
-            <div class="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
-                <div>
-                    © {{ new Date().getFullYear() }} Le Golf PetCare – Clinique vétérinaire à Tanger.
+        <footer class="mt-20 border-t border-[color:var(--brand-border)] bg-[rgba(255,250,245,0.82)]">
+            <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-6">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="brand-logo-frame h-16 w-16 overflow-hidden rounded-2xl border border-[color:var(--brand-border)] p-1">
+                            <img :src="brand.logo" :alt="brand.name" class="h-full w-full rounded-xl object-cover" />
+                        </div>
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.28em] text-[color:var(--brand-primary)]">{{ brand.name }}</p>
+                            <p class="text-sm text-[color:var(--brand-muted)]">{{ text.layout.subtitle }}</p>
+                        </div>
+                    </div>
+                    <p class="max-w-xl text-sm leading-7 text-[color:var(--brand-muted)]">
+                        {{ text.layout.footerLead }}
+                    </p>
+                    <p class="max-w-xl text-sm leading-7 text-[color:var(--brand-muted)]">
+                        {{ text.layout.footerNote }}
+                    </p>
                 </div>
-                <div class="flex flex-wrap gap-4">
-                    <span>Urgence vétérinaire · Pension · Toilettage · Ambulance</span>
+
+                <div class="space-y-3">
+                    <p class="text-sm font-semibold text-[color:var(--brand-secondary)]">{{ text.ctas.explore }}</p>
+                    <div class="grid gap-2">
+                        <Link
+                            v-for="item in navItems"
+                            :key="`footer-${item.key}`"
+                            :href="item.href"
+                            class="text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]"
+                        >
+                            {{ item.label }}
+                        </Link>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <p class="text-sm font-semibold text-[color:var(--brand-secondary)]">{{ text.ctas.contact }}</p>
+                    <a :href="brand.phoneHref" class="block text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                        {{ brand.phoneDisplay }}
+                    </a>
+                    <a :href="brand.whatsappHref" target="_blank" rel="noreferrer" class="block text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                        WhatsApp
+                    </a>
+                    <a :href="brand.mapsHref" target="_blank" rel="noreferrer" class="block text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                        {{ brand.address }}
+                    </a>
+                    <p class="text-sm text-[color:var(--brand-muted)]">{{ brand.hours }}</p>
                 </div>
             </div>
         </footer>
 
-        <div class="fixed bottom-5 right-4 flex flex-col gap-3 z-40">
+        <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-3" :class="direction === 'rtl' ? 'right-auto left-4' : ''">
             <a
-                href="https://wa.me/212612345678?text=Bonjour%2C%20je%20souhaite%20des%20informations%20pour%20mon%20animal."
+                :href="brand.whatsappHref"
                 target="_blank"
                 rel="noreferrer"
-                class="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/40 hover:bg-emerald-400 transition"
+                class="rounded-full bg-[color:var(--brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-[color:var(--brand-shadow)] transition hover:bg-[color:var(--brand-primary-strong)]"
             >
-                WhatsApp
+                {{ text.ctas.whatsapp }}
             </a>
             <a
-                href="tel:+212612345678"
-                class="inline-flex items-center gap-2 rounded-full bg-slate-900/90 px-4 py-2 text-xs font-medium text-slate-50 border border-slate-700/80 shadow-lg hover:border-emerald-400/70 hover:text-emerald-200 transition"
+                :href="brand.phoneHref"
+                class="rounded-full border border-[color:var(--brand-border)] bg-white/90 px-5 py-3 text-xs font-semibold text-[color:var(--brand-secondary)] shadow-lg transition hover:border-[color:var(--brand-primary)] hover:text-[color:var(--brand-primary)]"
             >
-                Appeler la clinique
+                {{ text.ctas.call }}
             </a>
             <a
-                href="https://maps.google.com?q=Clinique+V%C3%A9t%C3%A9rinaire+Le+Golf+Tanger"
+                :href="brand.mapsHref"
                 target="_blank"
                 rel="noreferrer"
-                class="inline-flex items-center gap-2 rounded-full bg-slate-900/90 px-4 py-2 text-xs font-medium text-slate-50 border border-slate-700/80 shadow-lg hover:border-emerald-400/70 hover:text-emerald-200 transition"
+                class="rounded-full border border-[color:var(--brand-border)] bg-white/90 px-5 py-3 text-xs font-semibold text-[color:var(--brand-secondary)] shadow-lg transition hover:border-[color:var(--brand-primary)] hover:text-[color:var(--brand-primary)]"
             >
-                Itinéraire Google Maps
+                {{ text.ctas.directions }}
             </a>
         </div>
     </div>
 </template>
 
 <script setup>
+import { computed, ref, watchEffect } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { brand, getLocale, getMessage, localeMeta, localizePath, serviceLinks, supportedLocales, switchLocalePath } from '../lib/site';
 
+const mobileOpen = ref(false);
 const page = usePage();
-const locale = computed(() => page.props.locale ?? 'fr');
+const locale = computed(() => getLocale(page.props.locale));
 const flash = computed(() => page.props.flash ?? {});
+const text = computed(() => getMessage(locale.value));
+const direction = computed(() => localeMeta[locale.value]?.dir ?? 'ltr');
+
+const navItems = computed(() => [
+    { key: 'home', href: localizePath(locale.value), label: text.value.nav.home },
+    ...serviceLinks.map((item) => ({
+        ...item,
+        href: localizePath(locale.value, item.href),
+        label: text.value.nav[item.key],
+    })),
+]);
+
+const localeItems = computed(() =>
+    supportedLocales.map((code) => ({
+        code,
+        label: localeMeta[code].label,
+        nativeLabel: localeMeta[code].nativeLabel,
+        href: switchLocalePath(page.url ?? '/', code),
+    })),
+);
+
+const homeHref = computed(() => localizePath(locale.value));
+const emergencyHref = computed(() => localizePath(locale.value, '/ambulance-veterinaire-tanger'));
+
+watchEffect(() => {
+    document.documentElement.lang = locale.value;
+    document.documentElement.dir = direction.value;
+});
 </script>

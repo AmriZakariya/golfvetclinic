@@ -1,78 +1,125 @@
 <template>
     <AppLayout>
-        <section class="mx-auto max-w-6xl px-4 py-16 space-y-10">
-            <header class="space-y-3">
-                <p class="text-xs uppercase tracking-[0.2em] text-emerald-300">
+        <!-- Page Header -->
+        <section class="px-4 pt-12 pb-2 lg:px-6">
+            <div class="mx-auto max-w-6xl">
+                <p class="text-xs font-semibold uppercase tracking-[0.22em]" style="color: var(--brand-primary)">
                     Communauté · Tanger
                 </p>
-                <h1 class="text-3xl sm:text-4xl font-semibold text-slate-50">
-                    Animal perdu, trouvé ou témoignage
+                <h1 class="mt-4 text-3xl font-semibold leading-tight sm:text-4xl" style="color: var(--brand-ink)">
+                    Animal perdu, trouvé ou témoignage 🐾
                 </h1>
-                <p class="text-sm text-slate-300 max-w-2xl">
-                    Publications modérées par l’équipe de la clinique. Merci de rester respectueux et précis.
+                <p class="mt-3 max-w-2xl text-base leading-7" style="color: var(--brand-muted)">
+                    Publications modérées par l'équipe de la clinique. Merci de rester respectueux et précis pour
+                    maximiser les chances de retrouver un animal.
                 </p>
-            </header>
+            </div>
+        </section>
 
-            <div class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <!-- Main content -->
+        <section class="px-4 pt-8 pb-20 lg:px-6">
+            <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] items-start">
+
+                <!-- Posts feed -->
                 <div class="space-y-4">
-                    <h2 class="text-sm font-semibold text-slate-200">Flux</h2>
-                    <div v-if="!posts.data?.length" class="text-sm text-slate-500">Aucune publication pour le moment.</div>
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-semibold" style="color: var(--brand-ink)">Publications récentes</h2>
+                        <span class="text-xs" style="color: var(--brand-muted)">{{ posts.data?.length ?? 0 }} post(s)</span>
+                    </div>
+
+                    <div v-if="!posts.data?.length" class="brand-card rounded-[28px] p-10 text-center">
+                        <p class="text-3xl">🐕</p>
+                        <p class="mt-3 text-sm" style="color: var(--brand-muted)">Aucune publication pour le moment.</p>
+                    </div>
+
                     <article
                         v-for="post in posts.data"
                         :key="post.id"
-                        class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 text-sm"
+                        class="brand-card rounded-[24px] p-5"
                     >
-                        <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="text-xs font-medium text-emerald-300">{{ typeLabel(post.type) }}</span>
-                            <span class="text-xs text-slate-500">{{ post.posted_at }}</span>
+                        <div class="mb-3 flex items-center justify-between gap-3">
+                            <span
+                                class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
+                                :style="typeStyle(post.type)"
+                            >
+                                {{ typeIcon(post.type) }} {{ typeLabel(post.type) }}
+                            </span>
+                            <span class="text-xs" style="color: var(--brand-muted)">{{ post.posted_at }}</span>
                         </div>
-                        <p class="text-slate-200 whitespace-pre-wrap">{{ post.description }}</p>
-                        <p v-if="post.location_text" class="text-xs text-slate-500 mt-2">📍 {{ post.location_text }}</p>
-                        <p class="text-xs text-slate-500 mt-1">Contact : {{ post.phone }}</p>
+                        <p class="text-sm leading-7 whitespace-pre-wrap" style="color: var(--brand-ink)">{{ post.description }}</p>
+                        <div class="mt-4 flex flex-wrap gap-4 pt-3" style="border-top: 1px solid var(--brand-border)">
+                            <p v-if="post.location_text" class="flex items-center gap-1.5 text-xs" style="color: var(--brand-muted)">
+                                <span>📍</span> {{ post.location_text }}
+                            </p>
+                            <p class="flex items-center gap-1.5 text-xs" style="color: var(--brand-muted)">
+                                <span>📞</span> {{ post.phone }}
+                            </p>
+                        </div>
                     </article>
 
-                    <div v-if="posts.links?.length > 3" class="flex flex-wrap gap-2 pt-4">
+                    <!-- Pagination -->
+                    <div v-if="posts.links?.length > 3" class="flex flex-wrap gap-2 pt-2">
                         <Link
                             v-for="(link, i) in posts.links"
                             :key="i"
                             :href="link.url || '#'"
-                            class="px-3 py-1 rounded-lg text-xs border border-slate-700"
-                            :class="link.active ? 'bg-emerald-500/20 border-emerald-500/50' : ''"
+                            class="rounded-xl px-3.5 py-1.5 text-xs font-medium transition"
+                            :style="link.active
+                                ? 'background: var(--brand-primary); color: #fff;'
+                                : 'background: var(--brand-surface); border: 1px solid var(--brand-border); color: var(--brand-muted);'"
                             v-html="link.label"
                         />
                     </div>
                 </div>
 
-                <form class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 space-y-4 h-fit" @submit.prevent="submit">
-                    <h2 class="text-sm font-semibold text-slate-200">Publier</h2>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Type</label>
-                        <select v-model="form.type" class="fld">
-                            <option value="lost">Animal perdu</option>
-                            <option value="found">Animal trouvé</option>
-                            <option value="story">Témoignage</option>
-                        </select>
+                <!-- Publish form -->
+                <div class="brand-card rounded-[28px] p-6">
+                    <div class="mb-5 flex items-center gap-3">
+                        <div class="brand-icon-badge">✏️</div>
+                        <h2 class="text-sm font-semibold" style="color: var(--brand-ink)">Publier une annonce</h2>
                     </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Description</label>
-                        <textarea v-model="form.description" rows="5" required class="fld" />
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Localisation (optionnel)</label>
-                        <input v-model="form.location_text" type="text" class="fld" />
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Téléphone</label>
-                        <input v-model="form.phone" type="tel" required class="fld" />
-                    </div>
-                    <button
-                        type="submit"
-                        class="w-full rounded-xl bg-emerald-400 px-4 py-2.5 text-sm font-semibold text-slate-950 disabled:opacity-60"
-                        :disabled="form.processing"
-                    >
-                        Envoyer pour modération
-                    </button>
-                </form>
+
+                    <form class="space-y-4" @submit.prevent="submit">
+                        <div>
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Type d'annonce</label>
+                            <select v-model="form.type" class="brand-field">
+                                <option value="lost">🔍 Animal perdu</option>
+                                <option value="found">🏠 Animal trouvé</option>
+                                <option value="story">💬 Témoignage</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Description <span style="color: var(--brand-primary)">*</span></label>
+                            <textarea
+                                v-model="form.description"
+                                rows="5"
+                                required
+                                class="brand-field"
+                                placeholder="Décrivez l'animal, les circonstances, signalement…"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Localisation (optionnel)</label>
+                            <input v-model="form.location_text" type="text" class="brand-field" placeholder="Quartier, rue…" />
+                        </div>
+
+                        <div>
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Téléphone <span style="color: var(--brand-primary)">*</span></label>
+                            <input v-model="form.phone" type="tel" required class="brand-field" placeholder="+212 6 XX XX XX XX" />
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="brand-btn-primary w-full rounded-2xl"
+                            :disabled="form.processing"
+                        >
+                            {{ form.processing ? 'Envoi…' : 'Envoyer pour modération' }}
+                        </button>
+                        <p class="text-xs leading-5 text-center" style="color: var(--brand-muted)">Votre publication sera visible après validation par notre équipe.</p>
+                    </form>
+                </div>
             </div>
         </section>
     </AppLayout>
@@ -99,15 +146,18 @@ function typeLabel(t) {
     return m[t] || t;
 }
 
+function typeIcon(t) {
+    const m = { lost: '🔍', found: '🏠', story: '💬' };
+    return m[t] || '🐾';
+}
+
+function typeStyle(t) {
+    if (t === 'lost') return 'background: rgba(239,68,68,0.1); color: rgb(220,38,38);';
+    if (t === 'found') return 'background: var(--brand-primary-soft); color: var(--brand-primary);';
+    return 'background: var(--brand-panel); color: var(--brand-secondary);';
+}
+
 const submit = () => {
     form.post(`/${props.locale}/communaute`);
 };
 </script>
-
-<style scoped>
-@reference "../../../css/app.css";
-
-.fld {
-    @apply w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 focus:border-emerald-400/80 focus:outline-none focus:ring-1 focus:ring-emerald-400/40;
-}
-</style>
