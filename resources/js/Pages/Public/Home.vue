@@ -1,10 +1,5 @@
 <template>
     <AppLayout>
-        <Head>
-            <title>{{ text.layout.subtitle }}</title>
-            <meta name="description" :content="text.home.lead" />
-        </Head>
-
         <section class="overflow-hidden px-4 pt-10 lg:px-6 lg:pt-14">
             <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
 
@@ -18,10 +13,10 @@
                     </div>
 
                     <div class="space-y-6">
-                        <h1 class="max-w-4xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-[#1f3d4b]">
+                        <h1 class="max-w-4xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-[color:var(--brand-secondary)]">
                             {{ text.home.title }}
                         </h1>
-                        <p class="max-w-3xl text-lg leading-relaxed text-[#1f3d4b]/80">
+                        <p class="max-w-3xl text-lg leading-relaxed text-[color:var(--brand-secondary)]/80">
                             {{ text.home.highlight }}
                         </p>
                         <p class="max-w-2xl text-base leading-relaxed text-gray-500">
@@ -55,11 +50,11 @@
                 </div>
 
                 <div class="relative w-full" id="appointment">
-                    <div class="absolute inset-0 -m-6 rounded-[40px] opacity-10 bg-gradient-to-tr from-[#1f3d4b] to-transparent blur-2xl"></div>
+                    <div class="absolute inset-0 -m-6 rounded-[40px] opacity-20 blur-2xl" style="background: linear-gradient(135deg, var(--brand-primary), transparent)"></div>
 
-                    <div class="relative rounded-[32px] p-8 text-white shadow-2xl bg-[#1f3d4b] border border-white/10">
+                    <div class="relative rounded-[32px] border border-white/10 p-8 text-white shadow-2xl" style="background: linear-gradient(155deg, var(--brand-secondary), color-mix(in srgb, var(--brand-primary) 44%, var(--brand-secondary) 56%))">
                         <div class="mb-6">
-                            <p class="text-xs uppercase tracking-[0.24em] text-[#cba16d]">
+                            <p class="text-xs uppercase tracking-[0.24em] text-[color:var(--brand-accent)]">
                                 {{ text.home.appointmentCardTitle }}
                             </p>
                             <h2 class="mt-3 text-2xl font-semibold">
@@ -96,19 +91,31 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="mb-1.5 block text-[11px] uppercase tracking-[0.1em] text-white/60">{{ text.home.form.date }}</label>
-                                    <input v-model="form.desired_date" type="date" required class="field-light" />
+                                    <label class="mb-1.5 block text-[11px] uppercase tracking-[0.1em] text-white/60">{{ ageFieldLabel }}</label>
+                                    <input v-model="form.animal_age" type="text" required class="field-light" :placeholder="ageFieldPlaceholder" />
                                 </div>
                             </div>
 
-                            <div>
-                                <label class="mb-1.5 block text-[11px] uppercase tracking-[0.1em] text-white/60">{{ text.home.form.reason }}</label>
-                                <textarea v-model="form.reason" rows="2" required class="field-light resize-none"></textarea>
+                            <div v-if="form.animal_type === 'other'">
+                                <label class="mb-1.5 block text-[11px] uppercase tracking-[0.1em] text-white/60">{{ otherAnimalFieldLabel }}</label>
+                                <input v-model="form.animal_other_name" type="text" required class="field-light" :placeholder="otherAnimalFieldPlaceholder" />
+                            </div>
+
+                            <div class="grid gap-4 sm:grid-cols-2">
+                                <div>
+                                    <label class="mb-1.5 block text-[11px] uppercase tracking-[0.1em] text-white/60">{{ text.home.form.date }}</label>
+                                    <input v-model="form.desired_date" type="date" required class="field-light" />
+                                </div>
+                                <div>
+                                    <label class="mb-1.5 block text-[11px] uppercase tracking-[0.1em] text-white/60">{{ text.home.form.reason }}</label>
+                                    <input v-model="form.reason" type="text" required class="field-light" />
+                                </div>
                             </div>
 
                             <button
                                 type="submit"
-                                class="w-full rounded-2xl px-4 py-3.5 text-sm font-semibold text-[#1f3d4b] transition-all hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60 bg-[#cba16d]"
+                                class="w-full rounded-2xl px-4 py-3.5 text-sm font-semibold text-[color:var(--brand-secondary)] transition-all hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
+                                style="background: linear-gradient(135deg, #ffffff, var(--brand-accent))"
                                 :disabled="form.processing"
                             >
                                 <span v-if="form.processing" class="flex items-center justify-center gap-2">
@@ -127,8 +134,8 @@
         <section class="px-4 pt-24 lg:px-6">
             <div class="mx-auto max-w-7xl">
                 <div class="text-center max-w-2xl mx-auto mb-12">
-                    <p class="text-xs uppercase tracking-[0.24em] font-semibold text-[#cba16d]">{{ text.home.servicesTitle }}</p>
-                    <h2 class="mt-3 text-3xl font-bold text-[#1f3d4b]">{{ text.home.servicesText }}</h2>
+                    <p class="text-xs uppercase tracking-[0.24em] font-semibold text-[color:var(--brand-primary)]">{{ text.home.servicesTitle }}</p>
+                    <h2 class="mt-3 text-3xl font-bold text-[color:var(--brand-secondary)]">{{ text.home.servicesText }}</h2>
                 </div>
 
                 <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -141,7 +148,7 @@
                         <div class="absolute right-0 top-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-gray-50 transition-transform group-hover:scale-150"></div>
                         <div class="relative">
                             <p class="text-xs uppercase tracking-[0.24em] font-semibold" style="color: var(--brand-primary)">{{ service.eyebrow }}</p>
-                            <h3 class="mt-4 text-xl font-bold text-[#1f3d4b]">{{ service.title }}</h3>
+                            <h3 class="mt-4 text-xl font-bold text-[color:var(--brand-secondary)]">{{ service.title }}</h3>
                             <p class="mt-3 text-sm leading-relaxed text-gray-500">{{ service.text }}</p>
                             <div class="mt-8 inline-flex items-center gap-2 text-sm font-semibold" style="color: var(--brand-primary)">
                                 {{ text.ctas.explore }}
@@ -156,8 +163,8 @@
         <section class="px-4 pt-24 lg:px-6">
             <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] items-center">
                 <div>
-                    <p class="text-xs uppercase tracking-[0.24em] font-semibold text-[#cba16d]">{{ text.home.trustTitle }}</p>
-                    <h2 class="mt-3 text-3xl font-bold leading-tight text-[#1f3d4b]">{{ text.home.trustText }}</h2>
+                    <p class="text-xs uppercase tracking-[0.24em] font-semibold text-[color:var(--brand-primary)]">{{ text.home.trustTitle }}</p>
+                    <h2 class="mt-3 text-3xl font-bold leading-tight text-[color:var(--brand-secondary)]">{{ text.home.trustText }}</h2>
                     <p class="mt-6 text-gray-500 leading-relaxed">
                         Notre clinique a été pensée pour minimiser le stress de vos animaux. Des espaces séparés, un équipement de pointe et une équipe passionnée garantissent une prise en charge optimale au cœur de Tanger.
                     </p>
@@ -168,7 +175,7 @@
                         <div class="h-10 w-10 rounded-full bg-white flex items-center justify-center mb-4 shadow-sm" style="color: var(--brand-primary)">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold text-[#1f3d4b]">{{ item.title }}</h3>
+                        <h3 class="text-lg font-bold text-[color:var(--brand-secondary)]">{{ item.title }}</h3>
                         <p class="mt-2 text-sm leading-relaxed text-gray-500">{{ item.text }}</p>
                     </article>
                 </div>
@@ -177,7 +184,7 @@
 
         <section class="px-4 py-24 lg:px-6">
             <div class="mx-auto max-w-7xl">
-                <div class="rounded-[40px] overflow-hidden bg-[#1f3d4b] grid lg:grid-cols-[1fr_1fr] shadow-2xl">
+                <div class="grid overflow-hidden rounded-[40px] shadow-2xl lg:grid-cols-[1fr_1fr]" style="background: linear-gradient(160deg, var(--brand-secondary), color-mix(in srgb, var(--brand-primary) 38%, var(--brand-secondary) 62%))">
 
                     <div class="h-[400px] lg:h-auto relative">
                         <iframe
@@ -189,35 +196,35 @@
                     </div>
 
                     <div class="p-10 lg:p-14 flex flex-col justify-center">
-                        <p class="text-xs uppercase tracking-[0.24em] text-[#cba16d]">Localisation</p>
+                        <p class="text-xs uppercase tracking-[0.24em] text-[color:var(--brand-accent)]">Localisation</p>
                         <h2 class="mt-3 text-3xl font-bold text-white">Nous rendre visite</h2>
 
                         <dl class="mt-8 grid gap-6 text-sm text-white/80">
                             <div class="flex gap-4">
-                                <svg class="w-6 h-6 text-[#cba16d] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <svg class="w-6 h-6 shrink-0 text-[color:var(--brand-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 <div>
                                     <dt class="font-semibold text-white">{{ text.home.location.addressLabel }}</dt>
                                     <dd class="mt-1 leading-relaxed">{{ brand.address }}</dd>
                                 </div>
                             </div>
                             <div class="flex gap-4">
-                                <svg class="w-6 h-6 text-[#cba16d] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg class="w-6 h-6 shrink-0 text-[color:var(--brand-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <div>
                                     <dt class="font-semibold text-white">{{ text.home.location.hoursLabel }}</dt>
                                     <dd class="mt-1 leading-relaxed">{{ brand.hours }}</dd>
                                 </div>
                             </div>
                             <div class="flex gap-4">
-                                <svg class="w-6 h-6 text-[#cba16d] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <svg class="w-6 h-6 shrink-0 text-[color:var(--brand-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                 <div>
                                     <dt class="font-semibold text-white">{{ text.home.location.phoneLabel }}</dt>
-                                    <dd class="mt-1 font-medium text-[#cba16d]">{{ brand.phoneDisplay }}</dd>
+                                    <dd class="mt-1 font-medium text-[color:var(--brand-accent)]">{{ brand.phoneDisplay }}</dd>
                                 </div>
                             </div>
                         </dl>
 
                         <div class="mt-10 flex flex-wrap gap-4">
-                            <a :href="brand.phoneHref" class="rounded-xl bg-[#cba16d] px-6 py-3 text-sm font-semibold text-[#1f3d4b] transition hover:bg-white">
+                            <a :href="brand.phoneHref" class="rounded-xl px-6 py-3 text-sm font-semibold text-[color:var(--brand-secondary)] transition hover:bg-white" style="background: linear-gradient(135deg, #ffffff, var(--brand-accent))">
                                 {{ text.ctas.call }}
                             </a>
                             <a :href="brand.mapsHref" target="_blank" rel="noreferrer" class="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
@@ -233,9 +240,10 @@
 
 <script setup>
 import { computed } from 'vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import { brand, getLocale, getMessage, localizePath } from '../../lib/site';
+import { ageLabel, agePlaceholder, otherAnimalLabel, otherAnimalPlaceholder } from '../../lib/animals';
 
 const props = defineProps({
     locale: {
@@ -258,48 +266,89 @@ const animalLabels = computed(() => {
     return { dog: 'Chien', cat: 'Chat', other: 'Autre' };
 });
 
+const ageFieldLabel = computed(() => ageLabel(locale.value));
+const ageFieldPlaceholder = computed(() => agePlaceholder(locale.value));
+const otherAnimalFieldLabel = computed(() => otherAnimalLabel(locale.value));
+const otherAnimalFieldPlaceholder = computed(() => otherAnimalPlaceholder(locale.value));
+
 const form = useForm({
     name: '',
     phone: '',
     animal_type: 'dog',
+    animal_other_name: '',
+    animal_age: '',
     desired_date: '',
     reason: '',
 });
 
 // Adapted for realistic presentation instead of meta-commentary
-const stats = computed(() => [
-    { label: text.value.home.stats.emergency, value: 'Intervention Rapide' },
-    { label: text.value.home.stats.location, value: brand.address },
-    { label: text.value.home.stats.services, value: 'Consultations & Chirurgie' },
-]);
-
-// Replaced the "meta" trust text from site.js with production-ready copy
-const activeTrustItems = computed(() => [
-    {
-        title: locale.value === 'en' ? 'Complete Medical Care' : 'Prise en charge complète',
-        text: locale.value === 'en'
-            ? 'From routine checkups to complex surgeries, all under one roof.'
-            : 'De la consultation de routine à la chirurgie complexe, tout est centralisé.',
-    },
-    {
-        title: locale.value === 'en' ? 'Modern Equipment' : 'Équipement moderne',
-        text: locale.value === 'en'
-            ? 'In-house laboratory and imaging to provide quick and accurate diagnoses.'
-            : 'Laboratoire sur place et imagerie pour des diagnostics rapides et précis.',
-    },
-    {
-        title: locale.value === 'en' ? 'Stress-Free Environment' : 'Environnement apaisant',
-        text: locale.value === 'en'
-            ? 'Separate waiting areas for dogs and cats to minimize anxiety.'
-            : 'Espaces d\'attente séparés pour chiens et chats afin de réduire l\'anxiété.',
-    },
-    {
-        title: locale.value === 'en' ? 'Passionate Team' : 'Équipe passionnée',
-        text: locale.value === 'en'
-            ? 'Veterinarians and assistants dedicated entirely to animal welfare.'
-            : 'Des vétérinaires et assistants dédiés au bien-être de vos compagnons.',
+const stats = computed(() => {
+    if (locale.value === 'ar') {
+        return [
+            { label: text.value.home.stats.emergency, value: 'استجابة سريعة طوال اليوم' },
+            { label: text.value.home.stats.location, value: brand.address },
+            { label: text.value.home.stats.services, value: 'استشارات وجراحة ورعاية يومية' },
+        ];
     }
-]);
+
+    if (locale.value === 'en') {
+        return [
+            { label: text.value.home.stats.emergency, value: 'Fast response all day' },
+            { label: text.value.home.stats.location, value: brand.address },
+            { label: text.value.home.stats.services, value: 'Consultations, surgery and daily care' },
+        ];
+    }
+
+    if (locale.value === 'es') {
+        return [
+            { label: text.value.home.stats.emergency, value: 'Respuesta rapida todo el dia' },
+            { label: text.value.home.stats.location, value: brand.address },
+            { label: text.value.home.stats.services, value: 'Consultas, cirugia y cuidados diarios' },
+        ];
+    }
+
+    return [
+        { label: text.value.home.stats.emergency, value: 'Reponse rapide toute la journee' },
+        { label: text.value.home.stats.location, value: brand.address },
+        { label: text.value.home.stats.services, value: 'Consultations, chirurgie et suivi quotidien' },
+    ];
+});
+
+const activeTrustItems = computed(() => {
+    if (locale.value === 'ar') {
+        return [
+            { title: 'رعاية متكاملة', text: 'من الفحص الروتيني الى الجراحة والمتابعة الطبية في مكان واحد.' },
+            { title: 'تجهيزات حديثة', text: 'مختبر وتصوير وتشخيص سريع لمساعدة العائلات على اتخاذ القرار بسرعة.' },
+            { title: 'بيئة مطمئنة', text: 'تنظيم واضح ومساحات مريحة تقلل التوتر على الحيوانات واصحابها.' },
+            { title: 'فريق يهتم فعلا', text: 'اطباء ومساعدون يركزون على الرفق والوضوح وجودة التواصل.' },
+        ];
+    }
+
+    if (locale.value === 'en') {
+        return [
+            { title: 'Complete care', text: 'From routine checkups to surgery and follow-up in one place.' },
+            { title: 'Modern equipment', text: 'On-site diagnostics and imaging for faster, clearer medical decisions.' },
+            { title: 'Calmer experience', text: 'Clear navigation and reassuring spaces for pets and families alike.' },
+            { title: 'Human-focused team', text: 'A caring team that combines medical rigor with approachable communication.' },
+        ];
+    }
+
+    if (locale.value === 'es') {
+        return [
+            { title: 'Atencion completa', text: 'Desde controles de rutina hasta cirugia y seguimiento en un solo lugar.' },
+            { title: 'Equipamiento moderno', text: 'Diagnostico e imagen en la clinica para decisiones mas rapidas.' },
+            { title: 'Experiencia tranquila', text: 'Un entorno mas claro y mas calmado para mascotas y familias.' },
+            { title: 'Equipo cercano', text: 'Un equipo atento que combina exigencia medica y trato humano.' },
+        ];
+    }
+
+    return [
+        { title: 'Prise en charge complete', text: 'De la consultation de routine a la chirurgie et au suivi dans un meme lieu.' },
+        { title: 'Equipements modernes', text: 'Diagnostic et imagerie sur place pour des decisions plus rapides.' },
+        { title: 'Experience apaisante', text: 'Une interface claire et un cadre rassurant pour les animaux et leurs familles.' },
+        { title: 'Equipe attentive', text: 'Un accompagnement humain qui combine rigueur medicale et communication simple.' },
+    ];
+});
 
 const serviceCards = computed(() => [
     {
@@ -335,9 +384,12 @@ const serviceCards = computed(() => [
 ]);
 
 const submit = () => {
-    form.post(localizePath(locale.value, '/rdv'), {
+    form.transform((data) => ({
+        ...data,
+        animal_other_name: data.animal_type === 'other' ? data.animal_other_name : null,
+    })).post(localizePath(locale.value, '/rdv'), {
         preserveScroll: true,
-        onSuccess: () => form.reset('name', 'phone', 'desired_date', 'reason'),
+        onSuccess: () => form.reset('name', 'phone', 'animal_type', 'animal_other_name', 'animal_age', 'desired_date', 'reason'),
     });
 };
 </script>

@@ -13,7 +13,9 @@ class AmbulanceRequestController extends Controller
     public function store(Request $request, string $locale): RedirectResponse
     {
         $validated = $request->validate([
-            'animal_type' => ['required', 'string', 'max:50'],
+            'animal_type' => ['required', 'in:dog,cat,other'],
+            'animal_other_name' => ['nullable', 'required_if:animal_type,other', 'string', 'max:100'],
+            'animal_age' => ['required', 'string', 'max:50'],
             'symptoms' => ['required', 'string', 'max:255'],
             'location_text' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
@@ -30,6 +32,8 @@ class AmbulanceRequestController extends Controller
                 "Nouvelle demande d'ambulance vétérinaire :\n\n"
                 ."Téléphone: {$ambulanceRequest->phone}\n"
                 ."Animal: {$ambulanceRequest->animal_type}\n"
+                ."Précision animal: {$ambulanceRequest->animal_other_name}\n"
+                ."Age: {$ambulanceRequest->animal_age}\n"
                 ."Symptômes: {$ambulanceRequest->symptoms}\n"
                 ."Localisation: {$ambulanceRequest->location_text}\n",
                 function ($message) {
@@ -46,4 +50,3 @@ class AmbulanceRequestController extends Controller
             ->with('success', __('Votre demande d\'ambulance a bien été envoyée. Nous vous appelons au plus vite.'));
     }
 }
-

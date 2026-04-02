@@ -15,7 +15,9 @@ class BoardingController extends Controller
         $validated = $request->validate([
             'owner_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
-            'animal_type' => ['required', 'string', 'max:50'],
+            'animal_type' => ['required', 'in:dog,cat,other'],
+            'animal_other_name' => ['nullable', 'required_if:animal_type,other', 'string', 'max:100'],
+            'animal_age' => ['required', 'string', 'max:50'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'special_instructions' => ['nullable', 'string', 'max:2000'],
@@ -29,6 +31,8 @@ class BoardingController extends Controller
                 ."Propriétaire: {$boarding->owner_name}\n"
                 ."Tél: {$boarding->phone}\n"
                 ."Animal: {$boarding->animal_type}\n"
+                ."Précision animal: {$boarding->animal_other_name}\n"
+                ."Age: {$boarding->animal_age}\n"
                 ."Du {$boarding->start_date} au {$boarding->end_date}\n"
                 ."Instructions: {$boarding->special_instructions}\n",
                 function ($message) {

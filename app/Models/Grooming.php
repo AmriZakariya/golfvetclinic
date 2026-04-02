@@ -9,6 +9,9 @@ class Grooming extends Model
     protected $fillable = [
         'owner_name',
         'phone',
+        'animal_type',
+        'animal_other_name',
+        'animal_age',
         'breed',
         'weight_kg',
         'service_type',

@@ -11,6 +11,8 @@ class AmbulanceRequest extends Model
 
     protected $fillable = [
         'animal_type',
+        'animal_other_name',
+        'animal_age',
         'symptoms',
         'location_text',
         'phone',
@@ -26,4 +28,3 @@ class AmbulanceRequest extends Model
         ];
     }
 }
-

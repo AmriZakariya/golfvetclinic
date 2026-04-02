@@ -15,6 +15,9 @@ class GroomingController extends Controller
         $validated = $request->validate([
             'owner_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
+            'animal_type' => ['required', 'in:dog,cat,other'],
+            'animal_other_name' => ['nullable', 'required_if:animal_type,other', 'string', 'max:100'],
+            'animal_age' => ['required', 'string', 'max:50'],
             'breed' => ['required', 'string', 'max:100'],
             'weight_kg' => ['nullable', 'numeric', 'min:0', 'max:200'],
             'service_type' => ['required', 'string', 'max:100'],
@@ -28,6 +31,9 @@ class GroomingController extends Controller
                 "Nouvelle demande de toilettage :\n\n"
                 ."Propriétaire: {$grooming->owner_name}\n"
                 ."Tél: {$grooming->phone}\n"
+                ."Animal: {$grooming->animal_type}\n"
+                ."Précision animal: {$grooming->animal_other_name}\n"
+                ."Age: {$grooming->animal_age}\n"
                 ."Race: {$grooming->breed}\n"
                 ."Poids: {$grooming->weight_kg}\n"
                 ."Prestation: {$grooming->service_type}\n"

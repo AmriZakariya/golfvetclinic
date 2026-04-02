@@ -10,6 +10,8 @@ class Boarding extends Model
         'owner_name',
         'phone',
         'animal_type',
+        'animal_other_name',
+        'animal_age',
         'start_date',
         'end_date',
         'special_instructions',

@@ -1,5 +1,20 @@
 <template>
     <div :dir="direction" :lang="locale" class="brand-shell min-h-screen">
+        <Head>
+            <title>{{ seo.title }}</title>
+            <meta name="description" :content="seo.description" />
+            <meta name="keywords" :content="seo.keywords" />
+            <meta property="og:title" :content="seo.title" />
+            <meta property="og:description" :content="seo.description" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" :content="canonicalUrl" />
+            <meta property="og:image" :content="brand.logo" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" :content="seo.title" />
+            <meta name="twitter:description" :content="seo.description" />
+            <link rel="canonical" :href="canonicalUrl" />
+        </Head>
+
         <div
             v-if="flash?.success"
             class="border-b border-[color:var(--brand-border)] bg-[color:var(--brand-primary-soft)] px-4 py-3 text-center text-sm text-[color:var(--brand-primary-strong)]"
@@ -29,7 +44,8 @@
                             v-for="item in navItems"
                             :key="item.key"
                             :href="item.href"
-                            class="text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]"
+                            class="rounded-full px-3 py-2 text-sm transition"
+                            :class="item.active ? 'bg-[color:var(--brand-primary-soft)] font-semibold text-[color:var(--brand-primary)]' : 'text-[color:var(--brand-muted)] hover:text-[color:var(--brand-primary)]'"
                         >
                             {{ item.label }}
                         </Link>
@@ -50,8 +66,9 @@
 
                         <Link
                             :href="emergencyHref"
-                            class="rounded-full bg-[color:var(--brand-secondary)] px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-[color:var(--brand-shadow)] transition hover:bg-[color:var(--brand-primary)]"
+                            class="inline-flex items-center gap-2 rounded-full bg-[color:var(--brand-secondary)] px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-[color:var(--brand-shadow)] transition hover:bg-[color:var(--brand-primary)]"
                         >
+                            <PhoneIcon class="h-4 w-4" />
                             {{ text.ctas.emergency }}
                         </Link>
                     </div>
@@ -74,7 +91,8 @@
                             v-for="item in navItems"
                             :key="item.key"
                             :href="item.href"
-                            class="rounded-2xl px-4 py-3 text-sm text-[color:var(--brand-ink)] transition hover:bg-[color:var(--brand-primary-soft)]"
+                            class="rounded-2xl px-4 py-3 text-sm transition"
+                            :class="item.active ? 'bg-[color:var(--brand-primary-soft)] font-semibold text-[color:var(--brand-primary)]' : 'text-[color:var(--brand-ink)] hover:bg-[color:var(--brand-primary-soft)]'"
                             @click="mobileOpen = false"
                         >
                             {{ item.label }}
@@ -137,13 +155,16 @@
 
                 <div class="space-y-3">
                     <p class="text-sm font-semibold text-[color:var(--brand-secondary)]">{{ text.ctas.contact }}</p>
-                    <a :href="brand.phoneHref" class="block text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                    <a :href="brand.phoneHref" class="inline-flex items-center gap-2 text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                        <PhoneIcon class="h-4 w-4" />
                         {{ brand.phoneDisplay }}
                     </a>
-                    <a :href="brand.whatsappHref" target="_blank" rel="noreferrer" class="block text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                    <a :href="brand.whatsappHref" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                        <WhatsAppIcon class="h-4 w-4" />
                         WhatsApp
                     </a>
-                    <a :href="brand.mapsHref" target="_blank" rel="noreferrer" class="block text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                    <a :href="brand.mapsHref" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-sm text-[color:var(--brand-muted)] transition hover:text-[color:var(--brand-primary)]">
+                        <MapPinIcon class="h-4 w-4" />
                         {{ brand.address }}
                     </a>
                     <p class="text-sm text-[color:var(--brand-muted)]">{{ brand.hours }}</p>
@@ -156,22 +177,26 @@
                 :href="brand.whatsappHref"
                 target="_blank"
                 rel="noreferrer"
-                class="rounded-full bg-[color:var(--brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-[color:var(--brand-shadow)] transition hover:bg-[color:var(--brand-primary-strong)]"
+                class="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white shadow-xl transition hover:brightness-110"
+                style="background:#25D366; box-shadow: 0 18px 40px -18px rgba(37, 211, 102, 0.9);"
             >
+                <WhatsAppIcon class="h-4 w-4" />
                 {{ text.ctas.whatsapp }}
             </a>
             <a
                 :href="brand.phoneHref"
-                class="rounded-full border border-[color:var(--brand-border)] bg-white/90 px-5 py-3 text-xs font-semibold text-[color:var(--brand-secondary)] shadow-lg transition hover:border-[color:var(--brand-primary)] hover:text-[color:var(--brand-primary)]"
+                class="inline-flex items-center gap-2 rounded-full border border-[color:var(--brand-border)] bg-white/90 px-5 py-3 text-xs font-semibold text-[color:var(--brand-secondary)] shadow-lg transition hover:border-[color:var(--brand-primary)] hover:text-[color:var(--brand-primary)]"
             >
+                <PhoneIcon class="h-4 w-4" />
                 {{ text.ctas.call }}
             </a>
             <a
                 :href="brand.mapsHref"
                 target="_blank"
                 rel="noreferrer"
-                class="rounded-full border border-[color:var(--brand-border)] bg-white/90 px-5 py-3 text-xs font-semibold text-[color:var(--brand-secondary)] shadow-lg transition hover:border-[color:var(--brand-primary)] hover:text-[color:var(--brand-primary)]"
+                class="inline-flex items-center gap-2 rounded-full border border-[color:var(--brand-border)] bg-white/90 px-5 py-3 text-xs font-semibold text-[color:var(--brand-secondary)] shadow-lg transition hover:border-[color:var(--brand-primary)] hover:text-[color:var(--brand-primary)]"
             >
+                <MapPinIcon class="h-4 w-4" />
                 {{ text.ctas.directions }}
             </a>
         </div>
@@ -180,8 +205,10 @@
 
 <script setup>
 import { computed, ref, watchEffect } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { brand, getLocale, getMessage, localeMeta, localizePath, serviceLinks, supportedLocales, switchLocalePath } from '../lib/site';
+import { MapPinIcon, PhoneIcon, WhatsAppIcon } from '../components/icons';
+import { getCanonicalUrl, getOrganizationSchema, getSeo } from '../lib/seo';
 
 const mobileOpen = ref(false);
 const page = usePage();
@@ -189,13 +216,28 @@ const locale = computed(() => getLocale(page.props.locale));
 const flash = computed(() => page.props.flash ?? {});
 const text = computed(() => getMessage(locale.value));
 const direction = computed(() => localeMeta[locale.value]?.dir ?? 'ltr');
+const seo = computed(() => getSeo(locale.value, page.url ?? '/'));
+const canonicalUrl = computed(() => getCanonicalUrl(page.url ?? '/'));
+const organizationSchema = computed(() => JSON.stringify(getOrganizationSchema()));
+
+function isActivePath(targetHref) {
+    const current = (page.url ?? '/').split('?')[0];
+    const target = targetHref.split('?')[0];
+
+    if (target === `/${locale.value}`) {
+        return current === target;
+    }
+
+    return current === target || current.startsWith(`${target}/`);
+}
 
 const navItems = computed(() => [
-    { key: 'home', href: localizePath(locale.value), label: text.value.nav.home },
+    { key: 'home', href: localizePath(locale.value), label: text.value.nav.home, active: isActivePath(localizePath(locale.value)) },
     ...serviceLinks.map((item) => ({
         ...item,
         href: localizePath(locale.value, item.href),
         label: text.value.nav[item.key],
+        active: isActivePath(localizePath(locale.value, item.href)),
     })),
 ]);
 
@@ -214,5 +256,23 @@ const emergencyHref = computed(() => localizePath(locale.value, '/ambulance-vete
 watchEffect(() => {
     document.documentElement.lang = locale.value;
     document.documentElement.dir = direction.value;
+});
+
+watchEffect(() => {
+    if (typeof document === 'undefined') {
+        return;
+    }
+
+    const id = 'organization-structured-data';
+    let script = document.getElementById(id);
+
+    if (!script) {
+        script = document.createElement('script');
+        script.id = id;
+        script.type = 'application/ld+json';
+        document.head.appendChild(script);
+    }
+
+    script.textContent = organizationSchema.value;
 });
 </script>

@@ -12,22 +12,22 @@
 
 /* ─── Light mode (default) ──────────────────────────────────────── */
 :root {
-    --brand-bg: #f7f2ec;
-    --brand-surface: rgba(255, 251, 247, 0.82);
-    --brand-surface-strong: #fffaf5;
-    --brand-panel: #fff3e8;
-    --brand-panel-alt: #f4e1d5;
-    --brand-ink: #1f2933;
-    --brand-muted: #6f6258;
-    --brand-primary: #d76631;
-    --brand-primary-strong: #bd4c22;
-    --brand-primary-soft: rgba(215, 102, 49, 0.14);
-    --brand-secondary: #1f3d4b;
-    --brand-accent: #cba16d;
-    --brand-border: rgba(112, 76, 53, 0.14);
-    --brand-shadow: rgba(152, 73, 30, 0.18);
-    --brand-field-bg: rgba(255, 250, 245, 0.96);
-    --brand-field-border: rgba(112, 76, 53, 0.22);
+    --brand-bg: #f3f8fe;
+    --brand-surface: rgba(255, 255, 255, 0.82);
+    --brand-surface-strong: #ffffff;
+    --brand-panel: #eaf4ff;
+    --brand-panel-alt: #dbeafe;
+    --brand-ink: #102033;
+    --brand-muted: #5f738d;
+    --brand-primary: #2563eb;
+    --brand-primary-strong: #1d4ed8;
+    --brand-primary-soft: rgba(37, 99, 235, 0.12);
+    --brand-secondary: #0f2f5c;
+    --brand-accent: #7dd3fc;
+    --brand-border: rgba(37, 99, 235, 0.12);
+    --brand-shadow: rgba(30, 64, 175, 0.18);
+    --brand-field-bg: rgba(255, 255, 255, 0.96);
+    --brand-field-border: rgba(59, 130, 246, 0.2);
     --brand-danger: #dc2626;
     --brand-danger-soft: rgba(220, 38, 38, 0.08);
     --brand-danger-border: rgba(220, 38, 38, 0.22);
@@ -35,22 +35,22 @@
 
 /* ─── Dark mode ─────────────────────────────────────────────────── */
 [data-theme="dark"] {
-    --brand-bg: #0d1821;
-    --brand-surface: rgba(18, 30, 42, 0.88);
-    --brand-surface-strong: #121e2a;
-    --brand-panel: #182535;
-    --brand-panel-alt: #14202e;
-    --brand-ink: #ede9e4;
-    --brand-muted: #9c9085;
-    --brand-primary: #e07844;
-    --brand-primary-strong: #c8602e;
-    --brand-primary-soft: rgba(224, 120, 68, 0.18);
-    --brand-secondary: #7ec3dd;
-    --brand-accent: #d4aa7a;
-    --brand-border: rgba(224, 120, 68, 0.2);
+    --brand-bg: #07111f;
+    --brand-surface: rgba(11, 25, 43, 0.88);
+    --brand-surface-strong: #0a1930;
+    --brand-panel: #102340;
+    --brand-panel-alt: #0d2038;
+    --brand-ink: #edf4ff;
+    --brand-muted: #93a8c4;
+    --brand-primary: #60a5fa;
+    --brand-primary-strong: #3b82f6;
+    --brand-primary-soft: rgba(96, 165, 250, 0.18);
+    --brand-secondary: #dbeafe;
+    --brand-accent: #7dd3fc;
+    --brand-border: rgba(96, 165, 250, 0.18);
     --brand-shadow: rgba(5, 10, 20, 0.55);
     --brand-field-bg: rgba(10, 18, 28, 0.9);
-    --brand-field-border: rgba(224, 120, 68, 0.22);
+    --brand-field-border: rgba(96, 165, 250, 0.22);
     --brand-danger: #f87171;
     --brand-danger-soft: rgba(248, 113, 113, 0.1);
     --brand-danger-border: rgba(248, 113, 113, 0.25);
@@ -60,8 +60,8 @@
 body {
     background-color: var(--brand-bg);
     background-image:
-        radial-gradient(circle at top, rgba(215, 102, 49, 0.1), transparent 34%),
-        linear-gradient(180deg, #fffaf5 0%, #f7f2ec 45%, #f1e8df 100%);
+        radial-gradient(circle at top, rgba(59, 130, 246, 0.16), transparent 34%),
+        linear-gradient(180deg, #f8fbff 0%, #eef6ff 45%, #e5f0ff 100%);
     color: var(--brand-ink);
     transition:
         background-color 0.3s ease,
@@ -70,8 +70,8 @@ body {
 
 [data-theme="dark"] body {
     background-image:
-        radial-gradient(circle at top, rgba(224, 120, 68, 0.08), transparent 34%),
-        linear-gradient(180deg, #0d1821 0%, #0f1e2c 50%, #0a1520 100%);
+        radial-gradient(circle at top, rgba(96, 165, 250, 0.1), transparent 34%),
+        linear-gradient(180deg, #081220 0%, #0a1729 50%, #08111d 100%);
 }
 
 /* ─── Brand shell ───────────────────────────────────────────────── */
@@ -84,9 +84,9 @@ body {
     position: fixed;
     inset: 0;
     background:
-        radial-gradient(circle at 10% 10%, rgba(203, 161, 109, 0.16), transparent 28%),
-        radial-gradient(circle at 100% 0%, rgba(215, 102, 49, 0.1), transparent 26%),
-        radial-gradient(circle at 90% 90%, rgba(31, 61, 75, 0.07), transparent 24%);
+        radial-gradient(circle at 10% 10%, rgba(125, 211, 252, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.12), transparent 26%),
+        radial-gradient(circle at 90% 90%, rgba(15, 47, 92, 0.08), transparent 24%);
     pointer-events: none;
     z-index: -1;
     transition: opacity 0.3s ease;
@@ -94,9 +94,9 @@ body {
 
 [data-theme="dark"] .brand-shell::before {
     background:
-        radial-gradient(circle at 10% 10%, rgba(212, 170, 122, 0.07), transparent 28%),
-        radial-gradient(circle at 100% 0%, rgba(224, 120, 68, 0.07), transparent 26%),
-        radial-gradient(circle at 90% 90%, rgba(126, 195, 221, 0.04), transparent 24%);
+        radial-gradient(circle at 10% 10%, rgba(125, 211, 252, 0.08), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.08), transparent 26%),
+        radial-gradient(circle at 90% 90%, rgba(147, 197, 253, 0.05), transparent 24%);
 }
 
 /* ─── Cards ─────────────────────────────────────────────────────── */
@@ -123,27 +123,27 @@ body {
 /* ─── Grid background ───────────────────────────────────────────── */
 .brand-grid {
     background-image:
-        linear-gradient(rgba(112, 76, 53, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(112, 76, 53, 0.06) 1px, transparent 1px);
+        linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
     background-size: 28px 28px;
 }
 
 [data-theme="dark"] .brand-grid {
     background-image:
-        linear-gradient(rgba(224, 120, 68, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(224, 120, 68, 0.06) 1px, transparent 1px);
+        linear-gradient(rgba(96, 165, 250, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96, 165, 250, 0.06) 1px, transparent 1px);
 }
 
 /* ─── Logo frame ────────────────────────────────────────────────── */
 .brand-logo-frame {
     background:
-        linear-gradient(145deg, rgba(255, 250, 245, 0.95), rgba(244, 225, 213, 0.8)),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(219, 234, 254, 0.85)),
         var(--brand-surface-strong);
 }
 
 [data-theme="dark"] .brand-logo-frame {
     background:
-        linear-gradient(145deg, rgba(18, 30, 42, 0.95), rgba(30, 50, 65, 0.8)),
+        linear-gradient(145deg, rgba(10, 25, 48, 0.95), rgba(14, 35, 64, 0.85)),
         var(--brand-surface-strong);
 }
 

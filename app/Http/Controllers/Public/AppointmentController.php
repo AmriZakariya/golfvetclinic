@@ -15,7 +15,9 @@ class AppointmentController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
-            'animal_type' => ['required', 'string', 'max:50'],
+            'animal_type' => ['required', 'in:dog,cat,other'],
+            'animal_other_name' => ['nullable', 'required_if:animal_type,other', 'string', 'max:100'],
+            'animal_age' => ['required', 'string', 'max:50'],
             'reason' => ['nullable', 'string', 'max:255'],
             'desired_date' => ['nullable', 'date'],
         ]);
@@ -28,6 +30,8 @@ class AppointmentController extends Controller
                 ."Nom: {$appointment->name}\n"
                 ."Téléphone: {$appointment->phone}\n"
                 ."Animal: {$appointment->animal_type}\n"
+                ."Précision animal: {$appointment->animal_other_name}\n"
+                ."Age: {$appointment->animal_age}\n"
                 ."Motif: {$appointment->reason}\n"
                 ."Date souhaitée: {$appointment->desired_date}\n",
                 function ($message) {
@@ -44,4 +48,3 @@ class AppointmentController extends Controller
             ->with('success', __('Votre demande de rendez-vous a bien été envoyée. Nous vous contacterons rapidement.'));
     }
 }
-

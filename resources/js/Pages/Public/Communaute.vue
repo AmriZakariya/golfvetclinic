@@ -4,14 +4,13 @@
         <section class="px-4 pt-12 pb-2 lg:px-6">
             <div class="mx-auto max-w-6xl">
                 <p class="text-xs font-semibold uppercase tracking-[0.22em]" style="color: var(--brand-primary)">
-                    Communauté · Tanger
+                    {{ content.eyebrow }}
                 </p>
                 <h1 class="mt-4 text-3xl font-semibold leading-tight sm:text-4xl" style="color: var(--brand-ink)">
-                    Animal perdu, trouvé ou témoignage 🐾
+                    {{ content.title }} 🐾
                 </h1>
                 <p class="mt-3 max-w-2xl text-base leading-7" style="color: var(--brand-muted)">
-                    Publications modérées par l'équipe de la clinique. Merci de rester respectueux et précis pour
-                    maximiser les chances de retrouver un animal.
+                    {{ content.lead }}
                 </p>
             </div>
         </section>
@@ -23,13 +22,13 @@
                 <!-- Posts feed -->
                 <div class="space-y-4">
                     <div class="flex items-center justify-between">
-                        <h2 class="text-sm font-semibold" style="color: var(--brand-ink)">Publications récentes</h2>
-                        <span class="text-xs" style="color: var(--brand-muted)">{{ posts.data?.length ?? 0 }} post(s)</span>
+                        <h2 class="text-sm font-semibold" style="color: var(--brand-ink)">{{ content.feedTitle }}</h2>
+                        <span class="text-xs" style="color: var(--brand-muted)">{{ posts.data?.length ?? 0 }} {{ content.posts }}</span>
                     </div>
 
                     <div v-if="!posts.data?.length" class="brand-card rounded-[28px] p-10 text-center">
                         <p class="text-3xl">🐕</p>
-                        <p class="mt-3 text-sm" style="color: var(--brand-muted)">Aucune publication pour le moment.</p>
+                        <p class="mt-3 text-sm" style="color: var(--brand-muted)">{{ content.empty }}</p>
                     </div>
 
                     <article
@@ -76,38 +75,38 @@
                 <div class="brand-card rounded-[28px] p-6">
                     <div class="mb-5 flex items-center gap-3">
                         <div class="brand-icon-badge">✏️</div>
-                        <h2 class="text-sm font-semibold" style="color: var(--brand-ink)">Publier une annonce</h2>
+                        <h2 class="text-sm font-semibold" style="color: var(--brand-ink)">{{ content.publishTitle }}</h2>
                     </div>
 
                     <form class="space-y-4" @submit.prevent="submit">
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Type d'annonce</label>
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">{{ content.typeLabel }}</label>
                             <select v-model="form.type" class="brand-field">
-                                <option value="lost">🔍 Animal perdu</option>
-                                <option value="found">🏠 Animal trouvé</option>
-                                <option value="story">💬 Témoignage</option>
+                                <option value="lost">🔍 {{ content.typeLost }}</option>
+                                <option value="found">🏠 {{ content.typeFound }}</option>
+                                <option value="story">💬 {{ content.typeStory }}</option>
                             </select>
                         </div>
 
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Description <span style="color: var(--brand-primary)">*</span></label>
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">{{ content.descriptionLabel }} <span style="color: var(--brand-primary)">*</span></label>
                             <textarea
                                 v-model="form.description"
                                 rows="5"
                                 required
                                 class="brand-field"
-                                placeholder="Décrivez l'animal, les circonstances, signalement…"
+                                :placeholder="content.descriptionPlaceholder"
                             />
                         </div>
 
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Localisation (optionnel)</label>
-                            <input v-model="form.location_text" type="text" class="brand-field" placeholder="Quartier, rue…" />
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">{{ content.locationLabel }}</label>
+                            <input v-model="form.location_text" type="text" class="brand-field" :placeholder="content.locationPlaceholder" />
                         </div>
 
                         <div>
-                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">Téléphone <span style="color: var(--brand-primary)">*</span></label>
-                            <input v-model="form.phone" type="tel" required class="brand-field" placeholder="+212 6 XX XX XX XX" />
+                            <label class="mb-1.5 block text-xs font-medium uppercase tracking-[0.18em]" style="color: var(--brand-muted)">{{ content.phoneLabel }} <span style="color: var(--brand-primary)">*</span></label>
+                            <input v-model="form.phone" type="tel" required class="brand-field" :placeholder="content.phonePlaceholder" />
                         </div>
 
                         <button
@@ -115,9 +114,9 @@
                             class="brand-btn-primary w-full rounded-2xl"
                             :disabled="form.processing"
                         >
-                            {{ form.processing ? 'Envoi…' : 'Envoyer pour modération' }}
+                            {{ form.processing ? content.sending : content.submit }}
                         </button>
-                        <p class="text-xs leading-5 text-center" style="color: var(--brand-muted)">Votre publication sera visible après validation par notre équipe.</p>
+                        <p class="text-xs leading-5 text-center" style="color: var(--brand-muted)">{{ content.helper }}</p>
                     </form>
                 </div>
             </div>
@@ -126,14 +125,24 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import { Link, useForm } from '@inertiajs/vue3';
+import { getLocale } from '../../lib/site';
 
 const props = defineProps({
     locale: { type: String, default: 'fr' },
     posts: { type: Object, required: true },
 });
 
+const locale = computed(() => getLocale(props.locale));
+const contentByLocale = {
+    fr: { eyebrow: 'Communaute · Tanger', title: 'Animal perdu, trouve ou temoignage', lead: "Publications moderees par l equipe de la clinique pour maximiser les chances de retrouver un animal.", feedTitle: 'Publications recentes', posts: 'post(s)', empty: 'Aucune publication pour le moment.', publishTitle: 'Publier une annonce', typeLabel: "Type d'annonce", typeLost: 'Animal perdu', typeFound: 'Animal trouve', typeStory: 'Temoignage', descriptionLabel: 'Description', descriptionPlaceholder: "Decrivez l animal, les circonstances, signalement...", locationLabel: 'Localisation (optionnel)', locationPlaceholder: 'Quartier, rue...', phoneLabel: 'Telephone', phonePlaceholder: '+212 6 XX XX XX XX', sending: 'Envoi...', submit: 'Envoyer pour moderation', helper: 'Votre publication sera visible apres validation par notre equipe.' },
+    en: { eyebrow: 'Community · Tangier', title: 'Lost pet, found pet or story', lead: 'Posts are moderated by the clinic team to improve clarity and trust.', feedTitle: 'Recent posts', posts: 'post(s)', empty: 'No posts yet.', publishTitle: 'Publish a post', typeLabel: 'Post type', typeLost: 'Lost pet', typeFound: 'Found pet', typeStory: 'Story', descriptionLabel: 'Description', descriptionPlaceholder: 'Describe the animal, context and identifying details...', locationLabel: 'Location (optional)', locationPlaceholder: 'District, street...', phoneLabel: 'Phone', phonePlaceholder: '+212 6 XX XX XX XX', sending: 'Sending...', submit: 'Send for review', helper: 'Your post will appear after moderation by our team.' },
+    ar: { eyebrow: 'المجتمع · طنجة', title: 'حيوان ضائع او موجود او شهادة', lead: 'يتم الاشراف على المنشورات من طرف العيادة لرفع الوضوح والثقة.', feedTitle: 'احدث المنشورات', posts: 'منشور', empty: 'لا توجد منشورات حاليا.', publishTitle: 'انشر اعلانا', typeLabel: 'نوع الاعلان', typeLost: 'حيوان ضائع', typeFound: 'حيوان موجود', typeStory: 'شهادة', descriptionLabel: 'الوصف', descriptionPlaceholder: 'صف الحيوان والظروف والعلامات...', locationLabel: 'الموقع (اختياري)', locationPlaceholder: 'الحي، الشارع...', phoneLabel: 'الهاتف', phonePlaceholder: '+212 6 XX XX XX XX', sending: 'جار الارسال...', submit: 'ارسال للمراجعة', helper: 'سيظهر منشورك بعد مراجعته من طرف فريقنا.' },
+    es: { eyebrow: 'Comunidad · Tanger', title: 'Animal perdido, encontrado o testimonio', lead: 'Las publicaciones son moderadas por el equipo de la clinica para mejorar la confianza.', feedTitle: 'Publicaciones recientes', posts: 'publicacion(es)', empty: 'No hay publicaciones todavia.', publishTitle: 'Publicar un anuncio', typeLabel: 'Tipo de anuncio', typeLost: 'Animal perdido', typeFound: 'Animal encontrado', typeStory: 'Testimonio', descriptionLabel: 'Descripcion', descriptionPlaceholder: 'Describe el animal, el contexto y las senales...', locationLabel: 'Ubicacion (opcional)', locationPlaceholder: 'Barrio, calle...', phoneLabel: 'Telefono', phonePlaceholder: '+212 6 XX XX XX XX', sending: 'Enviando...', submit: 'Enviar para moderacion', helper: 'Tu publicacion aparecera despues de la validacion del equipo.' },
+};
+const content = computed(() => contentByLocale[locale.value] ?? contentByLocale.fr);
 const form = useForm({
     type: 'lost',
     description: '',
@@ -142,7 +151,7 @@ const form = useForm({
 });
 
 function typeLabel(t) {
-    const m = { lost: 'Perdu', found: 'Trouvé', story: 'Témoignage' };
+    const m = { lost: content.value.typeLost, found: content.value.typeFound, story: content.value.typeStory };
     return m[t] || t;
 }
 

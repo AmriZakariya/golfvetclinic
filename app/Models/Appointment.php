@@ -13,6 +13,8 @@ class Appointment extends Model
         'name',
         'phone',
         'animal_type',
+        'animal_other_name',
+        'animal_age',
         'reason',
         'desired_date',
         'status',
@@ -26,4 +28,3 @@ class Appointment extends Model
         ];
     }
 }
-
