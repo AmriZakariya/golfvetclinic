@@ -88,7 +88,7 @@
                     </p>
                     <div class="mt-6 flex flex-wrap justify-center gap-3">
                         <a href="/" class="brand-btn-primary">Prendre rendez-vous en ligne</a>
-                        <a href="tel:+212539376388" class="brand-btn-outline"><span aria-hidden="true">📞</span> +212 6 12 34 56 78</a>
+                        <a href="tel:+212539376388" class="brand-btn-outline"><span aria-hidden="true">📞</span> +212 5 39 37 63 88</a>
                     </div>
                 </div>
             </div>

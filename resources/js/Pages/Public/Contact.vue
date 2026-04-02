@@ -47,7 +47,7 @@
                                             class="text-sm font-semibold transition hover:opacity-80"
                                             style="color: var(--brand-ink)"
                                         >
-                                            +212 6 12 34 56 78
+                                            +212 5 39 37 63 88
                                         </a>
                                     </dd>
                                 </div>

@@ -25,7 +25,7 @@
                     </svg>
                     <span class="text-sm font-semibold" style="color: var(--brand-danger)">Urgence critique ?</span>
                     <a href="tel:+212539376388" class="text-sm font-bold underline underline-offset-2 transition hover:opacity-80" style="color: var(--brand-danger)">
-                        Appelez directement → +212 6 12 34 56 78
+                        Appelez directement → +212 5 39 37 63 88
                     </a>
                 </div>
             </div>

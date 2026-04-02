@@ -11,7 +11,7 @@ export const brand = {
     name: 'Le Golf PetCare',
     clinicName: 'Clinique Veterinaire Le Golf',
     city: 'Tanger',
-    phoneDisplay: '+212 6 12 34 56 78',
+    phoneDisplay: '+212 5 39 37 63 88',
     phoneHref: 'tel:+212539376388',
     whatsappHref:
         'https://wa.me/212539376388?text=Bonjour%2C%20je%20souhaite%20des%20informations%20pour%20mon%20animal.',
