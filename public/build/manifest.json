@@ -1,0 +1,236 @@
+{
+  "_AdminLayout-CgRDEdMI.css": {
+    "file": "assets/AdminLayout-CgRDEdMI.css",
+    "src": "_AdminLayout-CgRDEdMI.css"
+  },
+  "_AdminLayout-DworbKgm.js": {
+    "file": "assets/AdminLayout-DworbKgm.js",
+    "name": "AdminLayout",
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/AdminLayout-CgRDEdMI.css"
+    ]
+  },
+  "_AppLayout-BBMXFixZ.js": {
+    "file": "assets/AppLayout-BBMXFixZ.js",
+    "name": "AppLayout",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "__plugin-vue_export-helper-S3RvzygF.js": {
+    "file": "assets/_plugin-vue_export-helper-S3RvzygF.js",
+    "name": "_plugin-vue_export-helper"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-D97rq4iU.css",
+    "name": "app",
+    "names": [
+      "app.css"
+    ],
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/Pages/Admin/AmbulanceRequests/Index.vue": {
+    "file": "assets/Index-CUKM-cp6.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/AmbulanceRequests/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout-DworbKgm.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Appointments/Index.vue": {
+    "file": "assets/Index-lSWObn4a.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/Appointments/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout-DworbKgm.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Boardings/Index.vue": {
+    "file": "assets/Index-DLLfsiBS.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/Boardings/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout-DworbKgm.js"
+    ]
+  },
+  "resources/js/Pages/Admin/CommunityPosts/Index.vue": {
+    "file": "assets/Index-D3_X8ayR.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/CommunityPosts/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout-DworbKgm.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Dashboard.vue": {
+    "file": "assets/Dashboard-hUyqAi93.js",
+    "name": "Dashboard",
+    "src": "resources/js/Pages/Admin/Dashboard.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout-DworbKgm.js"
+    ]
+  },
+  "resources/js/Pages/Admin/Groomings/Index.vue": {
+    "file": "assets/Index-CcDxYY-f.js",
+    "name": "Index",
+    "src": "resources/js/Pages/Admin/Groomings/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AdminLayout-DworbKgm.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Login.vue": {
+    "file": "assets/Login-BgevMoHe.js",
+    "name": "Login",
+    "src": "resources/js/Pages/Auth/Login.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/Login-Cx_Ec18S.css"
+    ]
+  },
+  "resources/js/Pages/Public/Ambulance.vue": {
+    "file": "assets/Ambulance-bSUq2unb.js",
+    "name": "Ambulance",
+    "src": "resources/js/Pages/Public/Ambulance.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ],
+    "css": [
+      "assets/Ambulance-C158mg2M.css"
+    ]
+  },
+  "resources/js/Pages/Public/Boutique.vue": {
+    "file": "assets/Boutique-C2hCoB6A.js",
+    "name": "Boutique",
+    "src": "resources/js/Pages/Public/Boutique.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ]
+  },
+  "resources/js/Pages/Public/Communaute.vue": {
+    "file": "assets/Communaute-BMDwGi8S.js",
+    "name": "Communaute",
+    "src": "resources/js/Pages/Public/Communaute.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ],
+    "css": [
+      "assets/Communaute-B2AQXDWb.css"
+    ]
+  },
+  "resources/js/Pages/Public/Contact.vue": {
+    "file": "assets/Contact-B7A-5r4O.js",
+    "name": "Contact",
+    "src": "resources/js/Pages/Public/Contact.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ]
+  },
+  "resources/js/Pages/Public/Home.vue": {
+    "file": "assets/Home-Oj11YLL6.js",
+    "name": "Home",
+    "src": "resources/js/Pages/Public/Home.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ],
+    "css": [
+      "assets/Home-DUBEQb7O.css"
+    ]
+  },
+  "resources/js/Pages/Public/Pension.vue": {
+    "file": "assets/Pension-BrSrgbOo.js",
+    "name": "Pension",
+    "src": "resources/js/Pages/Public/Pension.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ],
+    "css": [
+      "assets/Pension-B5mxZV8b.css"
+    ]
+  },
+  "resources/js/Pages/Public/Soins.vue": {
+    "file": "assets/Soins-bHpEyayO.js",
+    "name": "Soins",
+    "src": "resources/js/Pages/Public/Soins.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ]
+  },
+  "resources/js/Pages/Public/Toilettage.vue": {
+    "file": "assets/Toilettage-BG6s6FXH.js",
+    "name": "Toilettage",
+    "src": "resources/js/Pages/Public/Toilettage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-S3RvzygF.js",
+      "resources/js/app.js",
+      "_AppLayout-BBMXFixZ.js"
+    ],
+    "css": [
+      "assets/Toilettage-C0z-lm4G.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-B4KiLXT4.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Admin/AmbulanceRequests/Index.vue",
+      "resources/js/Pages/Admin/Appointments/Index.vue",
+      "resources/js/Pages/Admin/Boardings/Index.vue",
+      "resources/js/Pages/Admin/CommunityPosts/Index.vue",
+      "resources/js/Pages/Admin/Dashboard.vue",
+      "resources/js/Pages/Admin/Groomings/Index.vue",
+      "resources/js/Pages/Auth/Login.vue",
+      "resources/js/Pages/Public/Ambulance.vue",
+      "resources/js/Pages/Public/Boutique.vue",
+      "resources/js/Pages/Public/Communaute.vue",
+      "resources/js/Pages/Public/Contact.vue",
+      "resources/js/Pages/Public/Home.vue",
+      "resources/js/Pages/Public/Pension.vue",
+      "resources/js/Pages/Public/Soins.vue",
+      "resources/js/Pages/Public/Toilettage.vue"
+    ],
+    "css": [
+      "assets/app-D97rq4iU.css"
+    ]
+  }
+}
